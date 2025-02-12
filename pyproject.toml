@@ -1,0 +1,13 @@
+[project]
+name = "intro-to-scientific-computing-with-python"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "matplotlib>=3.10.0",
+    "numpy>=2.2.2",
+    "pandas>=2.2.3",
+    "pingouin>=0.5.5",
+    "seaborn>=0.13.2",
+]
