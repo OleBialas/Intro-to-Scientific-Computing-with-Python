@@ -1,0 +1,21 @@
+# Introduction to Python and Numpy
+
+## Storing Data in Lists
+
+| Code | Description |
+| ---  | ---|
+|`x = [1, 2, 3]`| Assign a list containing the integers 1, 2 and 3 to the variable `x`|
+
+## Creating Arrays in Numpy
+
+| Code | Description |
+| ---  | ---|
+| `np.array([2,5,3])` | Turn the list `[2,5,3]` into a numpy array|
+| `np.arange(2,7)` | Create an array with all integers between 2 and (not inculding) 7 |
+| `np.arange(2,7,0.3)` | Create an array with evenly spaced values between 2 and 7 with a step size of 0.3 |
+| `np.linspace(2,3,10)` | Create an array with 10 evenly spaced values between 2 and 3 |
+| `np.zeros(5)` | Create an array with 5 elements that are 0 |
+| `np.ones(5)` | Create an array with 5 elements that are 1 |
+| `np.random.randn(100)` | Create an array with 100 normally-distributed random numbers |
+
+
