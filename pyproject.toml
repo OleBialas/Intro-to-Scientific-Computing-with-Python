@@ -10,5 +10,6 @@ dependencies = [
     "numpy>=2.2.2",
     "pandas>=2.2.3",
     "pingouin>=0.5.5",
+    "pyqt5>=5.15.11",
     "seaborn>=0.13.2",
 ]

@@ -1,0 +1,37 @@
+# Data Visualization
+
+## Visualizing the Relationship Between Variables
+
+| Code | Description |
+| --- | --- |
+| `df = sns.load_dataset("titanic")` | Load the `"titanic"` dataset from the [seaborn-data repository](https://github.com/mwaskom/seaborn-data) |
+| `sns.relplot(data=df, x="age", y="fare")` | Plot the `rel`ationship between the variables `"age"` and `"fare"` in the data frame `df` |
+| `sns.relplot(data=df, x="deck", y="age", kind="line")` | Create a `"line"`plot for the `rel`ationship between the variables `"deck"` and `"age"` in the data frame `df`|
+| `sns.catplot(data=df, x="class", y="age")` | Plot the variable `"age"` in the different `cat`egories of `"class"` in the data frame `df`|
+| `sns.catplot(data=df, x="class", y="age", kind="bar", errorbar="ci")` | Plot the mean of `"age"` in the different `cat`egories of `"class"` in the data frame `df` with an `errorbar` that reflects the 95% confidence interval |
+
+## Visualizing the Distribution of Variables
+
+|Code|Description|
+|---|---|
+| `df = sns.load_dataset("titanic")` | Load the `"titanic"` dataset from the [seaborn-data repository](https://github.com/mwaskom/seaborn-data) |
+| `sns.displot(data=df, x="deck")` | Create a histogram for the `dis`tribution of the variable `"deck"` in the data frame `df` |
+| `sns.displot(data=df, x="age", kind="kde")` | Create a kernel density estimate (KDE) plot for the `"age"` distribution |
+| `sns.displot(data=df, x="age", kind="kde", hue="sex")` | Create a kernel density estimate (KDE) plot for the `"age"` distribution of each `"sex"`|
+
+## Multivariate Views on Complex Datasets
+
+|Code|Description|
+|---|---|
+| `df = sns.load_dataset("penguins")` | Load the `"penguins"` dataset from the [seaborn-data repository](https://github.com/mwaskom/seaborn-data) |
+|`sns.jointplot(data=df, x="flipper_length_mm", y="bill_length_mm"), hue="species"`| Create a joint plot with the relationship between flipper and bill lenght as well as their marginal distributions, divided by species, for the data frame `df`|
+| `sns.pairplot(data=penguins, hue="species")` | Create a plot with the relationships between all pairs of variables in the data frame `df`, divided by `"species"` |
+
+## Customizing Graphs
+
+|Code|Description|
+|---|---|
+| `df = sns.load_dataset("penguins")` | Load the `"penguins"` dataset from the [seaborn-data repository](https://github.com/mwaskom/seaborn-data) |
+| `g = sns.relplot(data=df, x="bill_length_mm", y="bill_depth_mm", hue="species")` | Plot the relationship between bill length and bill depth for each `"species"` in the data frame `df` and assign the resulting graph to the variable `g` |
+| `g.set(xlabel="Bill length (mm)", ylabel="Bill depth (mm)")` | Change the the axis labels on the graph `g` |
+
