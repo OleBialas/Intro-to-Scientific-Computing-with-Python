@@ -4,7 +4,7 @@ engine: Jupyter
 ---
 
 ## Notebooks
-- Session 1: [Introduction to Python](./01_intro_to_python_and_numpy/intro_to_python_and_numpy.html)
+- Session 1: [Introduction to Python](./01_intro_to_python/intro_to_python.html)
 - Session 2: [Array programming with Numpy](./02_working_with_matrices/)
 - Session 3: [Exploratory Data Analysis with Pandas and Pingouin](./03_analyzing_tabular_data/exploratory_data_analysis_with_pandas_and_pingouin.html)
 - Session 4: [Data Visualization with Seaborn and Matplotlib](./04_data_visualization/data_visualization.html)

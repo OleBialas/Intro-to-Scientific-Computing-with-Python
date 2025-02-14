@@ -1,9 +1,6 @@
 ---
 title: "Exploratory Data Analysis with Pandas and Pingouin"
 engine: Jupyter
-filters:
-  - assign
-  - solution
 ---
 
 ```{python}

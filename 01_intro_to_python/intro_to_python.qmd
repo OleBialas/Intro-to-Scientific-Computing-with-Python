@@ -1,21 +1,176 @@
-# Introduction to Python and Numpy
+---
+title: "Intro to Python"
+engine: Jupyter
+---
 
-## Storing Data in Lists
+
+```{python}
+import numpy as np
+```
+
+## 1. Storing Data in Variables
 
 | Code | Description |
 | ---  | ---|
-|`x = [1, 2, 3]`| Assign a list containing the integers 1, 2 and 3 to the variable `x`|
+| `x = 3.14` | Assign the floatig-point number `3.14` to the variable `x` |
+| `x = True` | Assign the boolean value `True` to the variable `x` |
+| `x = "hello"` | Assign the string `"hello"` to the variable `x` |
+| `x = [1,2,3]` | Assign the list of integers `[1,2,3]` to the variable `x`|
 
-## Creating Arrays in Numpy
+## 2. Creating Arrays in Numpy
 
 | Code | Description |
 | ---  | ---|
-| `np.array([2,5,3])` | Turn the list `[2,5,3]` into a numpy array|
-| `np.arange(2,7)` | Create an array with all integers between 2 and (not inculding) 7 |
-| `np.arange(2,7,0.3)` | Create an array with evenly spaced values between 2 and 7 with a step size of 0.3 |
-| `np.linspace(2,3,10)` | Create an array with 10 evenly spaced values between 2 and 3 |
-| `np.zeros(5)` | Create an array with 5 elements that are 0 |
-| `np.ones(5)` | Create an array with 5 elements that are 1 |
-| `np.random.randn(100)` | Create an array with 100 normally-distributed random numbers |
+| `x = np.array([2,5,3])` | Turn the list `[2,5,3]` into a numpy array and assign it to the variable `x`|
+| `x = np.arange(2,7)` | Create an array with all integers between 2 and (not inculding) 7 and assign it to the variable `x` |
+| `x = np.arange(2,7,0.3)` | Create an array with evenly spaced values between 2 and 7 with a step size of 0.3 and assign it to the variable `x`|
+| `x = np.linspace(2,3,10)` | Create an array with 10 evenly spaced values between 2 and 3 and assign it to the variable `x` |
+| `x = np.zeros(5)` | Create an array with 5 elements that are 0 and assign it to the variable `x` |
+| `x = np.ones(5)` | Create an array with 5 elements that are 1 and assign it to the variable `x` |
+| `x = np.random.randn(100)` | Create an array with 100 normally-distributed random numbers and assign it to the variable `x` |
 
+## 3. Analyzing Neural Spiking Data
+
+Now that we familiarized ourselves with Numpy arrays, we can start to work with some actual scientific data!
+In this section, we are going to load and analyze the spiking of a neuron in the primary visual cortex of a mouse.
+The spikes are represented as a sorted list of time points where spikes where observed.
+For example, `[0.05, 0.24, 1.5]` indicates that a spike was observed 50, 240 and 1500 milliseconds after the start of the recroding.
+Numpy offers a lot of convenient analysis functions which allow us to answer some interesting questions about the firing behavior of this neuron
+
+| Code | Description |
+| ---  | ---|
+| `x = np.load("data.npy")` | Load the file `"data.npy"` into an array and assign it to the variable `x` |
+| `np.size(x)` | Get the total number of element stored in the array `x` |
+| `np.min(x)` | Get the minimum value of the array `x` |
+| `np.max(x)` | Get the maximum value of the array `x` |
+| `np.mean(x)` | Compute the mean of all values in the array `x` |
+| `np.diff(x)` | Compute the difference between the elements in the array `x` |
+
+::: {.cell .markdown}
+### Exercises
+:::
+
+Load the file `"spikes.npy"` into a numpy array
+
+:::{.sol}
+```{python}
+spikes = np.load("spikes.npy")
+```
+:::
+
+:::{.direction}
+```{python}
+```
+:::
+
+What is the total number of spikes in this recording?
+
+:::{.sol}
+```{python}
+np.size(spikes)
+```
+:::
+
+:::{.direction}
+```{python}
+```
+:::
+
+What is the duration of the recording (assuming the recording stopped after the last spike was recorded)
+
+:::{.sol}
+```{python}
+np.max(spikes)
+```
+:::
+
+:::{.direction}
+```{python}
+```
+:::
+
+Compute the neuron's average firing rate (the number of spikes divided by the duration of the recording)
+
+:::{.sol}
+```{python}
+np.size(spikes)/np.max(spikes)
+```
+:::
+
+:::{.direction}
+```{python}
+```
+:::
+
+Compute the inter-spike intervals (i.e. the time differences between subsequent spikes)
+
+:::{.sol}
+```{python}
+isi = np.diff(spikes)
+```
+:::
+
+:::{.direction}
+```{python}
+```
+:::
+
+
+What is the average inter-spike interval for this neuron?
+
+:::{.sol}
+```{python}
+np.mean(isi)
+```
+:::
+
+:::{.direction}
+```{python}
+```
+:::
+
+What is the shortest time between two spikes?
+
+:::{.sol}
+```{python}
+np.min(isi)
+```
+:::
+
+:::{.direction}
+```{python}
+```
+:::
+
+## 4. Quatifying Numpy's Performance
+
+One of the key advantages of Numpy is that it is a lot faster than basic Python.
+How much faster?
+Let's find out!
+
+
+```{python}
+my_array = np.random.randn(1000000)
+my_list = list(my_array)
+```
+
+```{python}
+%%timeit
+sum(my_list)
+```
+
+```{python}
+%%timeit
+np.sum(my_array)
+```
+
+```{python}
+%%timeit
+max(my_list)
+```
+
+```{python}
+%%timeit
+np.max(my_array)
+```
 
