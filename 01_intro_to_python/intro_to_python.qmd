@@ -1,14 +1,23 @@
 ---
 title: "Intro to Python"
 engine: Jupyter
+filters:
+  - assign
+number-sections: true
+number-depth: 1
 ---
 
+Welcome to the first notebook of this course!
+In this notebook, we are going to learn how to represent different kinds of data in Python.
+We are also taking our first look at creating arrays in Numpy and we are going to analyze some actual neuroscience data.Finally, we are going to explore the differences in performance between Numpy and builtin Python functions.
 
-```{python}
-import numpy as np
-```
+## Storing Data in Variables
 
-## 1. Storing Data in Variables
+In the first section, we are going to learn how to represent different kinds of data and store them in varibles.
+We are going to encounter four baisc data types: integers, floating-point numbers, boolean values and text strings.
+We are also going to use lists which are collections of data.
+Data can be assigned to a variable using the `=` operator which takes the value on the right and assigns it to the variable on the left.
+In this sense, a variable is simply a container that we can use to store and access data.
 
 | Code | Description |
 | ---  | ---|
@@ -17,25 +26,90 @@ import numpy as np
 | `x = "hello"` | Assign the string `"hello"` to the variable `x` |
 | `x = [1,2,3]` | Assign the list of integers `[1,2,3]` to the variable `x`|
 
-## 2. Creating Arrays in Numpy
+### Exercises
 
-| Code | Description |
-| ---  | ---|
-| `x = np.array([2,5,3])` | Turn the list `[2,5,3]` into a numpy array and assign it to the variable `x`|
-| `x = np.arange(2,7)` | Create an array with all integers between 2 and (not inculding) 7 and assign it to the variable `x` |
-| `x = np.arange(2,7,0.3)` | Create an array with evenly spaced values between 2 and 7 with a step size of 0.3 and assign it to the variable `x`|
-| `x = np.linspace(2,3,10)` | Create an array with 10 evenly spaced values between 2 and 3 and assign it to the variable `x` |
-| `x = np.zeros(5)` | Create an array with 5 elements that are 0 and assign it to the variable `x` |
-| `x = np.ones(5)` | Create an array with 5 elements that are 1 and assign it to the variable `x` |
-| `x = np.random.randn(100)` | Create an array with 100 normally-distributed random numbers and assign it to the variable `x` |
+Assign the floating value `0.001` to a variable called `small`
 
-## 3. Analyzing Neural Spiking Data
+:::{.sol}
+```{python}
+small = 0.001
+```
+:::
 
-Now that we familiarized ourselves with Numpy arrays, we can start to work with some actual scientific data!
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+Assign the boolean value `False` to a variable called `this_is_false`
+
+:::{.sol}
+```{python}
+this_is_false = False
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+Assign the string value `"goodbye"` to a variable called `goodbye`
+
+:::{.sol}
+```{python}
+goodbye = "goodbye"
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+Assign a list with the number 0 through 9 to a variable called `digits`
+
+:::{.sol}
+```{python}
+digits = [0,1,2,3,4,5,6,7,8,9]
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+Assign a list with the values `3`, `False` and `"red"` to a variable called `random`
+
+:::{.sol}
+```{python}
+random = [3, False, "red"]
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+## Analyzing Neural Spiking Data
+
+Numpy offerst many useful functions for data analysis - let's test tem on some actual neuroscience data!
 In this section, we are going to load and analyze the spiking of a neuron in the primary visual cortex of a mouse.
 The spikes are represented as a sorted list of time points where spikes where observed.
-For example, `[0.05, 0.24, 1.5]` indicates that a spike was observed 50, 240 and 1500 milliseconds after the start of the recroding.
-Numpy offers a lot of convenient analysis functions which allow us to answer some interesting questions about the firing behavior of this neuron
+For example, `[0.05, 0.24, 1.5]` indicates that a spike was observed 50, 240 and 1500 milliseconds after the start of the recording.
+Using the functions below, we can answer some interesting questions about the firing behavior of a given neuron.
 
 | Code | Description |
 | ---  | ---|
@@ -44,11 +118,17 @@ Numpy offers a lot of convenient analysis functions which allow us to answer som
 | `np.min(x)` | Get the minimum value of the array `x` |
 | `np.max(x)` | Get the maximum value of the array `x` |
 | `np.mean(x)` | Compute the mean of all values in the array `x` |
+| `np.std(x)` | Compute the standard deviation of all values in the array `x` |
 | `np.diff(x)` | Compute the difference between the elements in the array `x` |
 
-::: {.cell .markdown}
 ### Exercises
-:::
+
+Execute the cell below to import the Numpy module under the name `np`
+
+
+```{python}
+import numpy as np
+```
 
 Load the file `"spikes.npy"` into a numpy array
 
@@ -60,6 +140,8 @@ spikes = np.load("spikes.npy")
 
 :::{.direction}
 ```{python}
+#| echo: false
+print('\u200b')
 ```
 :::
 
@@ -73,6 +155,8 @@ np.size(spikes)
 
 :::{.direction}
 ```{python}
+#| echo: false
+print('\u200b')
 ```
 :::
 
@@ -86,6 +170,8 @@ np.max(spikes)
 
 :::{.direction}
 ```{python}
+#| echo: false
+print('\u200b')
 ```
 :::
 
@@ -99,6 +185,8 @@ np.size(spikes)/np.max(spikes)
 
 :::{.direction}
 ```{python}
+#| echo: false
+print('\u200b')
 ```
 :::
 
@@ -112,6 +200,8 @@ isi = np.diff(spikes)
 
 :::{.direction}
 ```{python}
+#| echo: false
+print('\u200b')
 ```
 :::
 
@@ -126,6 +216,23 @@ np.mean(isi)
 
 :::{.direction}
 ```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+What is the standard deviation of inter-spike intervals for this neuron?
+
+:::{.sol}
+```{python}
+np.std(isi)
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
 ```
 :::
 
@@ -139,38 +246,240 @@ np.min(isi)
 
 :::{.direction}
 ```{python}
+#| echo: false
+print('\u200b')
 ```
 :::
 
-## 4. Quatifying Numpy's Performance
+## Creating Arrays in Numpy
+
+Numpy also offers many functions for generating arrays.
+The simplest way to create an array is to convert a list but there are other functions for specific purposes like generating arrays of random numbers or numbers within a certain range.
+In this section, we are going to create different kinds of arrays
+
+| Code | Description |
+| ---  | ---|
+| `x = np.array([2,5,3])` | Turn the list `[2,5,3]` into a numpy array and assign it to the variable `x`|
+| `x = np.random.randn(100)` | Create an array with 100 normally-distributed random numbers and assign it to the variable `x` |
+| `x = np.arange(2,7)` | Create an array with all integers between 2 and (not inculding) 7 and assign it to the variable `x` |
+| `x = np.arange(2,7,0.3)` | Create an array with evenly spaced values between 2 and 7 with a step size of 0.3 and assign it to the variable `x`|
+| `x = np.linspace(2,3,10)` | Create an array with 10 evenly spaced values between 2 and 3 and assign it to the variable `x` |
+
+### Exercises
+
+Turn the list `a` defined below into an array
+
+```{python}
+a = [1, 2, 3]
+```
+
+:::{.sol}
+```{python}
+np.array(a)
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+
+Turn the list `b` defined below into an array
+
+```{python}
+b = [1, True, "a"]
+```
+
+:::{.sol}
+```{python}
+np.array(b)
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+Make an array containing the integers from 1 to 15.
+
+:::{.sol}
+```{python}
+np.arange(1, 15+1)
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+Create an array that contains all even numbers up to and inculding 100
+
+:::{.sol}
+```{python}
+np.sum(np.arange(0, 100+2, 2))
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+
+Make an array of only 6 evenly-spaced numbers between 1 and 10.
+
+:::{.sol}
+```{python}
+np.linspace(1, 10, 6)
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+Create an array of 10 normally-distributed random numbers and compute its mean and standard deviation
+
+:::{.sol}
+```{python}
+x = np.random.randn(10)
+print(np.mean(x))
+print(np.std(x))
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+Now, create arrays with of 100 and 1000 normally-distributed random numbers and compute their means and standard deviations
+
+:::{.sol}
+```{python}
+x = np.random.randn(100)
+print(np.mean(x))
+print(np.std(x))
+
+x = np.random.randn(1000)
+print(np.mean(x))
+print(np.std(x))
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+Assume we recorded a signal with a duration of 20 seconds at a sampling rate of 100 Hz.
+Create an array of time points for this signal using both `np.arange()` and `np.linspace()`.
+The array should start at 0, end at 20 and contain 150 points for.
+Are the arrays generated with the two methods identical?
+
+:::{.sol}
+```{python}
+t1 = np.linspace(0, 20, 100*20+1)
+t2 = np.arange(0, 20+1/100, 1/100)
+```
+The array created with `np.arange()` may be longer because of rounding errors.
+:::
+
+
+## Quatifying Numpy's Performance
 
 One of the key advantages of Numpy is that it is a lot faster than basic Python.
 How much faster?
 Let's find out!
-
+The code below creates an array of ten thousand random numbers as well as a list with exactly the same data.
+We can use these to test how Numpy compares to basic Python with respect to performance.
 
 ```{python}
-my_array = np.random.randn(1000000)
+my_array = np.random.randn(10000)
 my_list = list(my_array)
 ```
+
+To time our code, we are going to use the `%%timeit` command.
+Adding `%%timeit` at the top of a cell makes it so that running that cell displays the time it took to run the code.
+The code below estimates the time for computing the sum of `my_list` using Python's builtin `sum()` method.
 
 ```{python}
 %%timeit
 sum(my_list)
 ```
 
+Per default, the code is executed ten times in a loop and the result is averaged over all loops.
+This procedure is repeated seven times so that we get one average duration for each run.
+The reported numbers are the average duration across the seven runs and its standard deviation.
+
+### Exercises
+
+Use `%%timeit` to estimate how long it takes to compute `np.sum()` of `my_array`
+
+:::{.sol}
 ```{python}
 %%timeit
 np.sum(my_array)
 ```
+:::
 
+Use `%%timeit` to estimate how long it takes for Python's builtin `max()` function to find the maximum of `my_list`
+
+:::{.sol}
 ```{python}
 %%timeit
 max(my_list)
 ```
+:::
 
+
+Use `%%timeit` to estimate how long it takes for the `np.max()` function to find the maximum of `my_array`
+
+:::{.sol}
 ```{python}
 %%timeit
 np.max(my_array)
 ```
+:::
 
+The code below estimates the time it takes to multiply every element of `my_list` by 2.
+Use `%%timeit` to test how long it takes to multiply `my_array` by 2 (hint: use the `*` operator)
+
+```{python}
+%%timeit
+[item*2 for item in my_list]
+```
+
+:::{.sol}
+```{python}
+%%timeit
+my_array*2
+```
+:::
+
+What is faster: multipying an array by 2 or adding the array to itself?
+
+:::{.sol{}}
+```{python}
+%%timeit
+my_array + my_array
+```
+:::
