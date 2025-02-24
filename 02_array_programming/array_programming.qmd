@@ -1,0 +1,309 @@
+---
+title: "Array Programming in Numpy"
+engine: Jupyter
+filters:
+  - assign
+number-sections: true
+number-depth: 1
+---
+
+## Indexing and Slicing
+
+Often, we want to access specific values stored inside an array.
+This can be done by slicing and indexing.
+Indexing simply means getting the element at a specific position.
+Python starts counting at 0, so `x[0]` will get the **1st** element of `x`.
+Slicing means getting all values within a certain range by providing a start and stop position.
+When we index and slice multi-dimensional arrays, we must provide multiple coordinates - one per dimension.
+We can also omitt a value to indicate that we want to get **all** values along that dimension
+
+| Code | Description |
+| --- | --- |
+| `x[0]` | Get the 1st element of `x` |
+| `x[-1]` | Get the last element of `x` |
+| `x[2:5]` | Get the 3rd 4th and 5th element of `x` |
+| `x[:5]` | Get everything up to and including the 5th element of `x` |
+| `x[2, 1]` | Get the element in the 3rd row and 2nd column of  the 2-dimensional array `x` |
+| `x[0, :]` | Get the whole first row of `x` |
+| `x[1:5, 2]` | Get the values from rows 2 trough 5 in the 3rd column of `x` |  
+
+---
+
+::: {#exr-}
+Execute the cell below to import numpy and create the array `x`.
+:::
+
+```{python}
+import numpy as np
+
+x = np.array([1,2,3,4,5,6,7,8,9])
+```
+
+::: {#exr-}
+Get the second element of `x`
+:::
+
+:::{.sol}
+```{python}
+x[1]
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+::: {#exr-}
+Get the element with the value `5` from x
+:::
+
+:::{.sol}
+```{python}
+x[4]
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+::: {#exr-}
+Get all the elements of `x` except for the first two
+:::
+
+:::{.sol}
+```{python}
+x[2:]
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+::: {#exr-}
+Get all elements of `x` except for the first and last
+:::
+
+:::{.sol}
+```{python}
+x[1:-1]
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+::: {#exr-}
+Execute the cell below to define the 2-dimensional array `x`
+:::
+
+```{python}
+x = np.array([
+    [1,2,3],
+    [4,5,6],
+    [7,8,9]
+])
+```
+
+::: {#exr-}
+Get the first row of `x` with the values `[1, 2, 3]`
+:::
+
+:::{.sol}
+```{python}
+x[0, :]
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+::: {#exr-}
+Get the second column of `x` with the values `[2, 5, 8]`
+:::
+
+:::{.sol}
+```{python}
+x[:, 1]
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+::: {#exr-}
+Get every value of `x` except for the bottom row
+:::
+
+:::{.sol}
+```{python}
+x[:-1, :]
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+::: {#exr-}
+Get every value of `x` except for the rightmost column
+:::
+
+:::{.sol}
+```{python}
+x[:, :-1]
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+## Filtering
+
+Another way to get specific values from arrays is by filtering.
+By filtering, we can extract values from an array based on a specific condition.
+For example, we can get all values that are greater than 0.
+Filtering can be divided into two steps: 
+1. Create a mask that specifies which elements meet the condition.
+2. Apply the mask to the array to filter it.
+
+---
+
+::: {#exm-}
+The array `x` contains 100 random integers between 0 and (not inculding) 10.
+Get all values of x that are smaller than 5.
+```{python}
+x = np.random.randint(10, size=100)
+```
+:::
+
+```{python}
+mask = x<5
+x[mask]
+```
+
+::: {#exr-}
+Get all values of `x` that are greater than 3
+:::
+
+:::{.sol}
+```{python}
+x[x>1]
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+:::{#exr-}
+Get all values of `x` that are smaller or equal to 2
+:::
+
+:::{.sol}
+```{python}
+x[x<=3]
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+How many values of `x` are 0 ?
+
+:::{.sol}
+```{python}
+np.size(x[x==0])
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+Does `x` contain more values above or below 5 ?
+
+:::{.sol}
+```{python}
+np.size(x[x<5])>np.size(x[x>5])
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+## Analyzing Multi-Dimensional Data
+
+Now that we learned about indexing, slicing and filtering, we have the tools for analyzing mutli-dimensional data!
+In this section we are going to analyze electroencephalography (EEG) recordings of brain responses to pure tones.
+The data are stored in a 3-dimensional array.
+The first dimension represents the number of trials or epochs (the tone was repeated multiple times), the second dimension represents the number of EEG channels and the third dimension repesents the number of time points.
+
+### Exercises
+
+```{python}
+eeg = np.load("eeg_epochs.npy")
+```
+
+How many epochs, channels and time points are there in the `eeg` data?
+
+Calculate the average evoked response potential (ERP) by averaging `eeg` across epochs.
+
+Find the channel with the largest peak-to-peak amplitude.
+
+Get all channels where the peak-to-peak amplitude is at least half as big as the maximum.
+
+Calculate the `eeg`'s standard deviation across channels, which is known as global field power (GFP).
+
+On average, was GFP larger in the first or second half of epochs?
+
+## Linking Arrays with Filtering
+
+### Exercises
+
+```{python}
+times = np.load("epoch_times.npy")
+```

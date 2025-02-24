@@ -8,6 +8,10 @@ import pandas as pd
 import pingouin as pg
 ```
 
+TODO:
+- Add section of bootstrapping
+- Move pingouin to visualization section and just do linrear regression with visualizations (linear model is the basis of a lot)
+
 ## 1. Exploring a Data Set in Pandas
 
 | Code | Description |
@@ -42,6 +46,7 @@ df = pd.read_csv("titanic.csv")
 | `mask = df["var1"].isin([1,2,3])` | Create a `mask` of boolean values that is `True` where the value of column `"var1"` is contained in the list `[1,2,3]` and `False` otherwise |
 | `df_filtered = df[mask]` | Get the rows of `df` where the `mask` is `True` and assign this new, filtered, data frame to a variable `df_filtered` |
 | `df_filtered.to_csv("mydata_filt.csv")` | Write the filtered data frame to a file called `"mydata_filt.csv"` |
+
 
 ## 3. Running Statistical Tests with Pingouin
 

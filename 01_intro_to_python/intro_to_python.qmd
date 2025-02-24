@@ -1,6 +1,7 @@
 ---
-title: "Intro to Python"
+title: "Intro to Python and Numpy"
 engine: Jupyter
+format: ipynb
 filters:
   - assign
 number-sections: true
@@ -26,9 +27,11 @@ In this sense, a variable is simply a container that we can use to store and acc
 | `x = "hello"` | Assign the string `"hello"` to the variable `x` |
 | `x = [1,2,3]` | Assign the list of integers `[1,2,3]` to the variable `x`|
 
-### Exercises
+---
 
+::: {#exr-}
 Assign the floating value `0.001` to a variable called `small`
+:::
 
 :::{.sol}
 ```{python}
@@ -43,7 +46,10 @@ print('\u200b')
 ```
 :::
 
+
+::: {#exr-}
 Assign the boolean value `False` to a variable called `this_is_false`
+:::
 
 :::{.sol}
 ```{python}
@@ -58,7 +64,10 @@ print('\u200b')
 ```
 :::
 
+
+::: {#exr-}
 Assign the string value `"goodbye"` to a variable called `goodbye`
+:::
 
 :::{.sol}
 ```{python}
@@ -73,7 +82,9 @@ print('\u200b')
 ```
 :::
 
+::: {#exr-}
 Assign a list with the number 0 through 9 to a variable called `digits`
+:::
 
 :::{.sol}
 ```{python}
@@ -88,7 +99,9 @@ print('\u200b')
 ```
 :::
 
+::: {#exr-}
 Assign a list with the values `3`, `False` and `"red"` to a variable called `random`
+:::
 
 :::{.sol}
 ```{python}
@@ -103,7 +116,7 @@ print('\u200b')
 ```
 :::
 
-## Analyzing Neural Spiking Data
+## Analyzing Neural Spiking Data with Numpy
 
 Numpy offerst many useful functions for data analysis - let's test tem on some actual neuroscience data!
 In this section, we are going to load and analyze the spiking of a neuron in the primary visual cortex of a mouse.
@@ -113,6 +126,7 @@ Using the functions below, we can answer some interesting questions about the fi
 
 | Code | Description |
 | ---  | ---|
+| `import numpy as np` | Import the module `numpy` under the alias `np` |
 | `x = np.load("data.npy")` | Load the file `"data.npy"` into an array and assign it to the variable `x` |
 | `np.size(x)` | Get the total number of element stored in the array `x` |
 | `np.min(x)` | Get the minimum value of the array `x` |
@@ -121,16 +135,28 @@ Using the functions below, we can answer some interesting questions about the fi
 | `np.std(x)` | Compute the standard deviation of all values in the array `x` |
 | `np.diff(x)` | Compute the difference between the elements in the array `x` |
 
-### Exercises
+---
 
-Execute the cell below to import the Numpy module under the name `np`
+::: {#exr-}
+Import the Numpy module under the alias `np`
+:::
 
-
+:::{.sol}
 ```{python}
 import numpy as np
 ```
+:::
 
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+::: {#exr-}
 Load the file `"spikes.npy"` into a numpy array
+:::
 
 :::{.sol}
 ```{python}
@@ -145,7 +171,9 @@ print('\u200b')
 ```
 :::
 
+::: {#exr-}
 What is the total number of spikes in this recording?
+:::
 
 :::{.sol}
 ```{python}
@@ -160,7 +188,9 @@ print('\u200b')
 ```
 :::
 
+::: {#exr-}
 What is the duration of the recording (assuming the recording stopped after the last spike was recorded)
+:::
 
 :::{.sol}
 ```{python}
@@ -175,7 +205,9 @@ print('\u200b')
 ```
 :::
 
+::: {#exr-}
 Compute the neuron's average firing rate (the number of spikes divided by the duration of the recording)
+:::
 
 :::{.sol}
 ```{python}
@@ -190,7 +222,9 @@ print('\u200b')
 ```
 :::
 
+::: {#exr-}
 Compute the inter-spike intervals (i.e. the time differences between subsequent spikes)
+:::
 
 :::{.sol}
 ```{python}
@@ -205,8 +239,9 @@ print('\u200b')
 ```
 :::
 
-
+::: {#exr-}
 What is the average inter-spike interval for this neuron?
+:::
 
 :::{.sol}
 ```{python}
@@ -221,7 +256,9 @@ print('\u200b')
 ```
 :::
 
+::: {#exr-}
 What is the standard deviation of inter-spike intervals for this neuron?
+:::
 
 :::{.sol}
 ```{python}
@@ -236,7 +273,9 @@ print('\u200b')
 ```
 :::
 
+::: {#exr-}
 What is the shortest time between two spikes?
+:::
 
 :::{.sol}
 ```{python}
@@ -265,9 +304,11 @@ In this section, we are going to create different kinds of arrays
 | `x = np.arange(2,7,0.3)` | Create an array with evenly spaced values between 2 and 7 with a step size of 0.3 and assign it to the variable `x`|
 | `x = np.linspace(2,3,10)` | Create an array with 10 evenly spaced values between 2 and 3 and assign it to the variable `x` |
 
-### Exercises
+---
 
+::: {#exr-}
 Turn the list `a` defined below into an array
+:::
 
 ```{python}
 a = [1, 2, 3]
@@ -287,7 +328,9 @@ print('\u200b')
 :::
 
 
+::: {#exr-}
 Turn the list `b` defined below into an array
+:::
 
 ```{python}
 b = [1, True, "a"]
@@ -306,7 +349,9 @@ print('\u200b')
 ```
 :::
 
+::: {#exr-}
 Make an array containing the integers from 1 to 15.
+:::
 
 :::{.sol}
 ```{python}
@@ -321,7 +366,9 @@ print('\u200b')
 ```
 :::
 
+::: {#exr-}
 Create an array that contains all even numbers up to and inculding 100
+:::
 
 :::{.sol}
 ```{python}
@@ -336,8 +383,9 @@ print('\u200b')
 ```
 :::
 
-
+::: {#exr-}
 Make an array of only 6 evenly-spaced numbers between 1 and 10.
+:::
 
 :::{.sol}
 ```{python}
@@ -352,7 +400,9 @@ print('\u200b')
 ```
 :::
 
+::: {#exr-}
 Create an array of 10 normally-distributed random numbers and compute its mean and standard deviation
+:::
 
 :::{.sol}
 ```{python}
@@ -369,7 +419,9 @@ print('\u200b')
 ```
 :::
 
+::: {#exr-}
 Now, create arrays with of 100 and 1000 normally-distributed random numbers and compute their means and standard deviations
+:::
 
 :::{.sol}
 ```{python}
@@ -390,10 +442,12 @@ print('\u200b')
 ```
 :::
 
+::: {#exr-}
 Assume we recorded a signal with a duration of 20 seconds at a sampling rate of 100 Hz.
 Create an array of time points for this signal using both `np.arange()` and `np.linspace()`.
 The array should start at 0, end at 20 and contain 150 points for.
 Are the arrays generated with the two methods identical?
+:::
 
 :::{.sol}
 ```{python}
@@ -401,6 +455,13 @@ t1 = np.linspace(0, 20, 100*20+1)
 t2 = np.arange(0, 20+1/100, 1/100)
 ```
 The array created with `np.arange()` may be longer because of rounding errors.
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
 :::
 
 
@@ -419,20 +480,26 @@ my_list = list(my_array)
 
 To time our code, we are going to use the `%%timeit` command.
 Adding `%%timeit` at the top of a cell makes it so that running that cell displays the time it took to run the code.
-The code below estimates the time for computing the sum of `my_list` using Python's builtin `sum()` method.
 
+---
+
+::: {#exm-}
+Estimate the time for computing the sum of `my_list` using Python's builtin `sum()` method with `%%timeit`.
 ```{python}
 %%timeit
 sum(my_list)
 ```
+:::
 
 Per default, the code is executed ten times in a loop and the result is averaged over all loops.
 This procedure is repeated seven times so that we get one average duration for each run.
 The reported numbers are the average duration across the seven runs and its standard deviation.
 
-### Exercises
+---
 
+::: {#exr-}
 Use `%%timeit` to estimate how long it takes to compute `np.sum()` of `my_array`
+:::
 
 :::{.sol}
 ```{python}
@@ -441,7 +508,16 @@ np.sum(my_array)
 ```
 :::
 
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+::: {#exr-}
 Use `%%timeit` to estimate how long it takes for Python's builtin `max()` function to find the maximum of `my_list`
+:::
 
 :::{.sol}
 ```{python}
@@ -450,8 +526,16 @@ max(my_list)
 ```
 :::
 
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
 
+::: {#exr-}
 Use `%%timeit` to estimate how long it takes for the `np.max()` function to find the maximum of `my_array`
+:::
 
 :::{.sol}
 ```{python}
@@ -460,8 +544,17 @@ np.max(my_array)
 ```
 :::
 
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+::: {#exr-}
 The code below estimates the time it takes to multiply every element of `my_list` by 2.
 Use `%%timeit` to test how long it takes to multiply `my_array` by 2 (hint: use the `*` operator)
+:::
 
 ```{python}
 %%timeit
@@ -475,11 +568,35 @@ my_array*2
 ```
 :::
 
-What is faster: multipying an array by 2 or adding the array to itself?
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
 
-:::{.sol{}}
+::: {#exr-}
+What is faster: multipying an array by 2 or adding the array to itself?
+:::
+
+:::{.sol}
 ```{python}
 %%timeit
 my_array + my_array
 ```
+
+```{python}
+%%timeit
+my_array*2
+```
+
+They take roughy the same time
 :::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
