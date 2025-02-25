@@ -195,6 +195,16 @@ For example, we can get all values that are greater than 0.
 Filtering can be divided into two steps: 
 1. Create a mask that specifies which elements meet the condition.
 2. Apply the mask to the array to filter it.
+By creating different masks we can vary the criteria for selecting data from an array.
+
+| Code | Description |
+| --- | --- |
+| `mask = x>1` | Create a `mask` that is `True` where `x` is greater than `1` and `False` otherwise |
+| `mask = x=="k"` | Create a `mask` that is `True` where `x` is equal to `"k"` and `False` otherwise |
+| `mask = x<=1` | Create a `mask` that is `True` where `x` is smaller or equal to `1` and `False` otherwise |
+| `x[mask]` | Get all elements of `x` where the `mask` is `True` |
+| `np.sum(mask)` | Sum all elements of the `mask` (`True` counts as 1, `False` as 0) |
+| `np.size(mask)` | Get the number of elements in `x` |
 
 ---
 
@@ -204,12 +214,12 @@ Get all values of x that are smaller than 5.
 ```{python}
 x = np.random.randint(10, size=100)
 ```
-:::
 
 ```{python}
 mask = x<5
 x[mask]
 ```
+:::
 
 ::: {#exr-}
 Get all values of `x` that are greater than 3
@@ -245,11 +255,17 @@ print('\u200b')
 ```
 :::
 
-How many values of `x` are 0 ?
+:::{#exr-}
+The cell below defines an array containing a gene sequence. Get all adenine (`"A"`) nucleotides from this array.
+
+```{python}
+seq = np.array(["A", "T", "G", "C", "G", "T", "A", "C", "G", "T", "T", "A", "G", "C", "T", "A", "G", "G", "C", "T", "T", "A", "C", "G", "A", "T", "C", "G", "T", "A"])
+```
+:::
 
 :::{.sol}
 ```{python}
-np.size(x[x==0])
+seq[seq=="A"]
 ```
 :::
 
@@ -260,11 +276,24 @@ print('\u200b')
 ```
 :::
 
-Does `x` contain more values above or below 5 ?
+:::{#exr-}
+Is there more cytosine (`"C"`) or guanine (`"G"`) in the sequence?
+:::
 
 :::{.sol}
 ```{python}
-np.size(x[x<5])>np.size(x[x>5])
+print(np.sum(seq=="C") < np.sum(seq=="G"))
+```
+:::
+
+
+:::{#exr-}
+What fraction of the sequence is made up by thymine (`"T"`)?
+:::
+
+:::{.sol}
+```{python}
+print(np.sum(seq=="T")/np.size(seq))
 ```
 :::
 
@@ -279,31 +308,250 @@ print('\u200b')
 
 Now that we learned about indexing, slicing and filtering, we have the tools for analyzing mutli-dimensional data!
 In this section we are going to analyze electroencephalography (EEG) recordings of brain responses to pure tones.
-The data are stored in a 3-dimensional array.
-The first dimension represents the number of trials or epochs (the tone was repeated multiple times), the second dimension represents the number of EEG channels and the third dimension repesents the number of time points.
+The data are stored in a 3-dimensional array, where the dimensions represent:
+1. The number of trials or epochs (i.e. repetitions of the same stimulus)
+2. The number of EEG channels
+3. The number of time points in the recording
 
-### Exercises
+When we use numpy fuctions to compute properties like mean or standard deviation on a multidimensioal array, we can use the `axis` argument to select a specific dimension.
 
+|Code | Description |
+| --- | --- |
+| `x=np.load("myfile.npy")` | Load the data stored in `myfile.npy` and assign the them to the variable `x` |
+| `np.shape(x)` | Get the shape of `x` (i.e. the size of all dimensions of `x`) |
+| `x[0, :, :]` | Select the 1st element along the 1st dimension of the 3D array `x` |
+| `x[:, 4:10, :]` | Select the elements 5 to 10 along the 2nd dimension of the 3D array `x` |
+| `x[1, :, :3]` | Select the 1st element along the 1st dimension and the first 3 elements along the 3rd dimension of the 3D array `x` |
+| `np.mean(x, axis=0)` | Compute the mean across the 1st dimension of `x`|
+| `np.std(x, axis=2)` | Compute the standard deviation across the 3rd dimension of `x`|
+| `np.max(x)` | Get the maximum value of `x`|
+
+---
+
+:::{#exr-}
+Load the data stored in the file `eeg_epochs.npy` and assign it to a variable called `eeg`.
+:::
+
+:::{.sol}
 ```{python}
 eeg = np.load("eeg_epochs.npy")
 ```
+:::
 
+:::{#exr-}
 How many epochs, channels and time points are there in the `eeg` data?
+:::
 
-Calculate the average evoked response potential (ERP) by averaging `eeg` across epochs.
+:::{.sol}
+```{python}
+print(f"There are {eeg.shape[0]} epochs, {eeg.shape[1]} channels and {eeg.shape[2]} timepoints.")
+```
+:::
 
-Find the channel with the largest peak-to-peak amplitude.
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
 
-Get all channels where the peak-to-peak amplitude is at least half as big as the maximum.
+:::{#exr-}
+Select the first EEG channel
+:::
 
-Calculate the `eeg`'s standard deviation across channels, which is known as global field power (GFP).
+:::{.sol}
+```{python}
+eeg[:, 0, :]
+```
+:::
 
-On average, was GFP larger in the first or second half of epochs?
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+:::{#exr-}
+Select the first 10 epochs for the 5th EEG channel
+:::
+
+:::{.sol}
+```{python}
+eeg[:10, 4, :]
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+:::{#exr-}
+Select the first half of all time points for EEG channels 10 to 20
+:::
+
+:::{.sol}
+```{python}
+n_time = int(np.shape(eeg)[0]/2)
+eeg[:, 9:20,  :n_time]
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+:::{#exr-}
+Compute the standard deviation across all EEG channels which is called the global field potential (GFP) and assign it to a new variable called `gfp`. What is the shape of this array?
+:::
+
+:::{.sol}
+```{python}
+gfp = np.std(eeg, axis=1)
+gfp.shape
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+:::{#exr-avggfp}
+Average the GFP across all epochs and find the peak value of this average GFP
+:::
+
+:::{.sol}
+```{python}
+avg_gfp = np.mean(gfp, axis=0)
+np.max(avg_gfp)
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+:::{#exr-}
+Average the GFP across time and epochs (so that the result is a single scalar value).
+Compute this value separately for the first and second half of epochs - which one is larger?
+:::
+
+:::{.sol}
+```{python}
+n_epo_half = int(np.shape(gfp)[0]/2)
+print(np.mean(gfp[0:n_epo_half]) < np.mean(gfp[n_epo_half:]))
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
 
 ## Linking Arrays with Filtering
 
-### Exercises
+Filtering can also be used to used to link to different arrays. In this section we are going to load an array that contains the time points for the epochs from the previous array. We can use that array to define a mask and then apply that mask to the array of epoch. This way, we can select specific time intervals from the data!
 
+:::{#exr-}
+Load the data stored in the file `epoch_times.npy` and assign it to a varibale called `times`
+:::
+
+:::{.sol}
 ```{python}
 times = np.load("epoch_times.npy")
 ```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+:::{#exr-}
+How many time points are there? What's the start and stop time?
+:::
+
+:::{.sol}
+```{python}
+print(np.size(times), times[0], times[-1])
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+:::{#exr-}
+Create a mask that is `True` for all `times` greater than `0.05` (i.e. 50 milliseconds) and apply that to the array of epochs to get the `eeg` recording at those times
+:::
+
+:::{.sol}
+```{python}
+mask = times < 0.05
+eeg[:,:,mask]
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+:::{#exr-}
+In @exr-avggfp, you computed the average global field power (GFP). Use `times` to create a mask and extract the GFP values between `0.085` and `0.115` seconds and average those values - this is the amplitude of the so called N1 response.
+:::
+
+:::{.sol}
+```{python}
+mask = (times>=0.085) & (times<=0.015)
+avg_gfp[mask].mean()
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+:::{#exr-}
+What is the time point where the average GFP is the largest?
+:::
+
+:::{.sol}
+```{python}
+mask = avg_gfp == avg_gfp.max()
+times[mask]
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+
