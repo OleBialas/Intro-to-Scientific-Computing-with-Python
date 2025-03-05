@@ -1,5 +1,14 @@
 # Data Visualization
 
+
+| Code | Description |
+| --- | --- |
+| `pg.ttest(x, y)` | Run a T-test to find whether there is a significant difference in the mean of the distributions between the variables `x` and `y` |
+| `pg.corr(x,y)` | Compute pearson's correlation between the variables `x` and `y` |
+| `pg.anova(df, dv="score", between="class")` | Run a one-way anova on the data frame `df` to test if there is a signifcant difference in `"score"` between the different groups in the column `"class"` |
+| `pg.linear_regression(x, y)` | Linear regression between variables `x` and `y` |
+
+
 ## Visualizing the Relationship Between Variables
 
 | Code | Description |
