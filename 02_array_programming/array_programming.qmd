@@ -4,7 +4,7 @@ engine: Jupyter
 filters:
   - assign
 number-sections: true
-number-depth: 1
+number-depth: 2
 ---
 
 ## Indexing and Slicing
@@ -19,6 +19,8 @@ We can also omitt a value to indicate that we want to get **all** values along t
 
 | Code | Description |
 | --- | --- |
+| `import numpy as np` | Import the module `numpy` under the alias `np` |
+| `x = np.arange(2,7)` | Create an array with all integers between 2 and (not inculding) 7 and assign it to the variable `x` |
 | `x[0]` | Get the 1st element of `x` |
 | `x[-1]` | Get the last element of `x` |
 | `x[2:5]` | Get the 3rd 4th and 5th element of `x` |
@@ -30,17 +32,41 @@ We can also omitt a value to indicate that we want to get **all** values along t
 ---
 
 ::: {#exr-}
-Execute the cell below to import numpy and create the array `x`.
+Import the Numpy module under the alias `np`.
 :::
 
+:::{.sol}
 ```{python}
 import numpy as np
-
-x = np.array([1,2,3,4,5,6,7,8,9])
 ```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+:::{#exr-}
+Create an array with the integers between 1 and 10 and assign it to a variable `x`.
+:::
+
+:::{.sol}
+```{python}
+x = np.arange(1, 10)
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
 
 ::: {#exr-}
-Get the second element of `x`
+Get the second element of `x`.
 :::
 
 :::{.sol}
@@ -57,12 +83,12 @@ print('\u200b')
 :::
 
 ::: {#exr-}
-Get the element with the value `5` from x
+Get the second-to-last element of `x`.
 :::
 
 :::{.sol}
 ```{python}
-x[4]
+x[-2]
 ```
 :::
 
@@ -74,7 +100,7 @@ print('\u200b')
 :::
 
 ::: {#exr-}
-Get all the elements of `x` except for the first two
+Get all the elements of `x` except for the first two.
 :::
 
 :::{.sol}
@@ -91,7 +117,7 @@ print('\u200b')
 :::
 
 ::: {#exr-}
-Get all elements of `x` except for the first and last
+Get all elements of `x` except for the first and last.
 :::
 
 :::{.sol}
@@ -108,7 +134,7 @@ print('\u200b')
 :::
 
 ::: {#exr-}
-Execute the cell below to define the 2-dimensional array `x`
+Execute the cell below to define the 2-dimensional array `x`.
 :::
 
 ```{python}
@@ -120,7 +146,7 @@ x = np.array([
 ```
 
 ::: {#exr-}
-Get the first row of `x` with the values `[1, 2, 3]`
+Get the first row of `x` with the values `[1, 2, 3]`.
 :::
 
 :::{.sol}
@@ -137,7 +163,7 @@ print('\u200b')
 :::
 
 ::: {#exr-}
-Get the second column of `x` with the values `[2, 5, 8]`
+Get the second column of `x` with the values `[2, 5, 8]`.
 :::
 
 :::{.sol}
@@ -154,7 +180,7 @@ print('\u200b')
 :::
 
 ::: {#exr-}
-Get every value of `x` except for the bottom row
+Get every value of `x` except for the bottom row.
 :::
 
 :::{.sol}
@@ -171,7 +197,7 @@ print('\u200b')
 :::
 
 ::: {#exr-}
-Get every value of `x` except for the rightmost column
+Get every value of `x` except for the rightmost column.
 :::
 
 :::{.sol}
@@ -205,29 +231,44 @@ By creating different masks we can vary the criteria for selecting data from an 
 | `x[mask]` | Get all elements of `x` where the `mask` is `True` |
 | `np.sum(mask)` | Sum all elements of the `mask` (`True` counts as 1, `False` as 0) |
 | `np.size(mask)` | Get the number of elements in `x` |
+| `x = np.random.randint(5, size=20)` | Create an array with `20` random integers between 0 and `5` and assign it to the variable `x` |
 
 ---
 
-::: {#exm-}
-The array `x` contains 100 random integers between 0 and (not inculding) 10.
-Get all values of x that are smaller than 5.
+:::{#exr-}
+Create an array with 100 random integers between 0 and 10 and assign it to the variable `x`.
+:::
+
+:::{.sol}
 ```{python}
 x = np.random.randint(10, size=100)
 ```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+::: {#exm-}
+Get all values of x that are smaller than 5.
+:::
 
 ```{python}
 mask = x<5
 x[mask]
 ```
-:::
 
 ::: {#exr-}
-Get all values of `x` that are greater than 3
+Get all values of `x` that are greater than 3.
 :::
 
 :::{.sol}
 ```{python}
-x[x>1]
+mask = x>3
+x[mask]
 ```
 :::
 
@@ -239,12 +280,12 @@ print('\u200b')
 :::
 
 :::{#exr-}
-Get all values of `x` that are smaller or equal to 2
+Get all values of `x` that are smaller or equal to 2.
 :::
 
 :::{.sol}
 ```{python}
-x[x<=3]
+x[x<=2]
 ```
 :::
 
@@ -282,10 +323,16 @@ Is there more cytosine (`"C"`) or guanine (`"G"`) in the sequence?
 
 :::{.sol}
 ```{python}
-print(np.sum(seq=="C") < np.sum(seq=="G"))
+np.sum(seq=="C") < np.sum(seq=="G")
 ```
 :::
 
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
 
 :::{#exr-}
 What fraction of the sequence is made up by thymine (`"T"`)?
@@ -306,18 +353,18 @@ print('\u200b')
 
 ## Analyzing Multi-Dimensional Data
 
-Now that we learned about indexing, slicing and filtering, we have the tools for analyzing mutli-dimensional data!
+Now that we learned about indexing, slicing and filtering, we have the tools for analyzing multidimensional data!
 In this section we are going to analyze electroencephalography (EEG) recordings of brain responses to pure tones.
 The data are stored in a 3-dimensional array, where the dimensions represent:
 1. The number of trials or epochs (i.e. repetitions of the same stimulus)
 2. The number of EEG channels
 3. The number of time points in the recording
-
-When we use numpy fuctions to compute properties like mean or standard deviation on a multidimensioal array, we can use the `axis` argument to select a specific dimension.
+When we use Numpy functions to compute properties like mean or standard deviation on a multidimensional array, we can use the `axis` argument to select a specific dimension.
 
 |Code | Description |
 | --- | --- |
-| `x=np.load("myfile.npy")` | Load the data stored in `myfile.npy` and assign the them to the variable `x` |
+| `x=np.load("myfile.npy")` | Load the data stored in `"myfile.npy"` and assign the them to the variable `x` |
+| `np.save("newfile.npy", x)` | Save the array `x` to a file called `"newfile.npy"` |
 | `np.shape(x)` | Get the shape of `x` (i.e. the size of all dimensions of `x`) |
 | `x[0, :, :]` | Select the 1st element along the 1st dimension of the 3D array `x` |
 | `x[:, 4:10, :]` | Select the elements 5 to 10 along the 2nd dimension of the 3D array `x` |
@@ -335,6 +382,13 @@ Load the data stored in the file `eeg_epochs.npy` and assign it to a variable ca
 :::{.sol}
 ```{python}
 eeg = np.load("eeg_epochs.npy")
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
 ```
 :::
 
@@ -356,7 +410,7 @@ print('\u200b')
 :::
 
 :::{#exr-}
-Select the first EEG channel
+Select the data from the first EEG channel.
 :::
 
 :::{.sol}
@@ -373,7 +427,7 @@ print('\u200b')
 :::
 
 :::{#exr-}
-Select the first 10 epochs for the 5th EEG channel
+Select the data from the first 10 epochs for the 5th EEG channel.
 :::
 
 :::{.sol}
@@ -390,7 +444,7 @@ print('\u200b')
 :::
 
 :::{#exr-}
-Select the first half of all time points for EEG channels 10 to 20
+Select the from the first half of all time points for EEG channels 10 to 20.
 :::
 
 :::{.sol}
@@ -425,8 +479,26 @@ print('\u200b')
 ```
 :::
 
+:::{#exr-}
+Save the GFP to a file called `"gfp.npy"`. Then load the file again to make sure it was stored.
+:::
+
+:::{.sol}
+```{python}
+np.save("gfp.npy", gfp)
+np.load("gfp.npy")
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
 :::{#exr-avggfp}
-Average the GFP across all epochs and find the peak value of this average GFP
+Average the GFP across all epochs and find the peak value of this average GFP.
 :::
 
 :::{.sol}
@@ -464,10 +536,14 @@ print('\u200b')
 
 ## Linking Arrays with Filtering
 
-Filtering can also be used to used to link to different arrays. In this section we are going to load an array that contains the time points for the epochs from the previous array. We can use that array to define a mask and then apply that mask to the array of epoch. This way, we can select specific time intervals from the data!
+Filtering can also be used to used to link to different arrays. In this section we are going to load an array that contains the time points for the epochs from the previous array. We can use that array to define a mask and then apply that mask to the array of epoch. 
+Numpy also allow us to combine multiple masks using the and/or operators `&` and `|`.
+Combining two Boolean arrays with `&` results in an array that is only `True` when both arrays are `True`.
+Combining them with `|` results in an array that is `True` when either array is `True`.
+In this section we are going to use filtering to link the EEG data with the array containing the time points at which the data were recorded (time point 0 represents the stimulus onset).
 
 :::{#exr-}
-Load the data stored in the file `epoch_times.npy` and assign it to a varibale called `times`
+Load the data stored in the file `epoch_times.npy` and assign it to a variable called `times`.
 :::
 
 :::{.sol}
@@ -500,14 +576,25 @@ print('\u200b')
 ```
 :::
 
+
+:::{#exm-}
+Get all of the `eeg` data that was recorded in the first 0.2 seconds after stimulus onset and print the shape of the resulting array.
+:::
+
+```{python}
+mask = times < 0.2
+np.shape(eeg[:,:,mask])
+```
+
+
 :::{#exr-}
-Create a mask that is `True` for all `times` greater than `0.05` (i.e. 50 milliseconds) and apply that to the array of epochs to get the `eeg` recording at those times
+Get all of the `eeg` data that was recorded in the first 0.05 seconds after stimulus onset and print the shape of the resulting array.
 :::
 
 :::{.sol}
 ```{python}
 mask = times < 0.05
-eeg[:,:,mask]
+np.shape(eeg[:,:,mask])
 ```
 :::
 
@@ -518,8 +605,28 @@ print('\u200b')
 ```
 :::
 
+:::{#exm-}
+Get all of the `eeg` data that was recorded between 0.1 and 0.2 seconds after stimulus onset and print the shape of the resulting array.
+:::
+
+```{python}
+mask = (times>=0.1) & (times<=0.2)
+np.shape(eeg[:,:,mask])
+```
+
 :::{#exr-}
-In @exr-avggfp, you computed the average global field power (GFP). Use `times` to create a mask and extract the GFP values between `0.085` and `0.115` seconds and average those values - this is the amplitude of the so called N1 response.
+Get all of the `eeg` data that was recorded before 0.1 and after 0.2 seconds and print the shape of the resulting array.
+:::
+
+:::{.sol}
+```{python}
+mask = (times>=0.1) | (times<=0.2)
+eeg[:,:,mask]
+```
+:::
+
+:::{#exr-}
+Take the average GFP from @exr-avggfp, get the values between 0.085 and 0.115 seconds after stimulus onset and average them. This is the amplitude of the so called N1 response.
 :::
 
 :::{.sol}

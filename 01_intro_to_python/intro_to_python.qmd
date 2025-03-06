@@ -5,7 +5,7 @@ format: ipynb
 filters:
   - assign
 number-sections: true
-number-depth: 1
+number-depth: 2
 ---
 
 Welcome to the first notebook of this course!
@@ -19,6 +19,8 @@ We are going to encounter four baisc data types: integers, floating-point number
 We are also going to use lists which are collections of data.
 Data can be assigned to a variable using the `=` operator which takes the value on the right and assigns it to the variable on the left.
 In this sense, a variable is simply a container that we can use to store and access data.
+The data type of a variable can be determined with the `type()` function.
+We can also convert varibles from one type to another - for example, the `int()` function will try to convert a variable to an integer.
 
 | Code | Description |
 | ---  | ---|
@@ -26,16 +28,28 @@ In this sense, a variable is simply a container that we can use to store and acc
 | `x = True` | Assign the boolean value `True` to the variable `x` |
 | `x = "hello"` | Assign the string `"hello"` to the variable `x` |
 | `x = [1,2,3]` | Assign the list of integers `[1,2,3]` to the variable `x`|
+| `type(x)` | Get the data type of `x` |
+| `int(x)` | Convert the variable `x` to an integer |
 
 ---
 
+:::{#exm-}
+Assign the integer value `1` to a variable called `one` and print its `type()`.
+:::
+
+```{python}
+one = 1
+type(one)
+```
+
 ::: {#exr-}
-Assign the floating value `0.001` to a variable called `small`
+Assign the floating value `0.001` to a variable called `small` and print its type.
 :::
 
 :::{.sol}
 ```{python}
 small = 0.001
+type(small)
 ```
 :::
 
@@ -46,14 +60,14 @@ print('\u200b')
 ```
 :::
 
-
 ::: {#exr-}
-Assign the boolean value `False` to a variable called `this_is_false`
+Assign the boolean value `False` to a variable called `this_is_false` and convert it to an integer.
 :::
 
 :::{.sol}
 ```{python}
 this_is_false = False
+int(this_is_false)
 ```
 :::
 
@@ -64,14 +78,32 @@ print('\u200b')
 ```
 :::
 
+::: {#exr-}
+Assign the boolean value `True` to a variable called `this_is_true` and convert it to an integer.
+:::
+
+:::{.sol}
+```{python}
+this_is_true = True
+int(this_is_true)
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
 
 ::: {#exr-}
-Assign the string value `"goodbye"` to a variable called `goodbye`
+Assign the string value `"goodbye"` to a variable called `goodbye` and print its type
 :::
 
 :::{.sol}
 ```{python}
 goodbye = "goodbye"
+type(goodbye)
 ```
 :::
 
@@ -83,29 +115,13 @@ print('\u200b')
 :::
 
 ::: {#exr-}
-Assign a list with the number 0 through 9 to a variable called `digits`
+Assign a list with the number 0 through 6 to a variable called `dice` and print its type
 :::
 
 :::{.sol}
 ```{python}
-digits = [0,1,2,3,4,5,6,7,8,9]
-```
-:::
-
-:::{.direction}
-```{python}
-#| echo: false
-print('\u200b')
-```
-:::
-
-::: {#exr-}
-Assign a list with the values `3`, `False` and `"red"` to a variable called `random`
-:::
-
-:::{.sol}
-```{python}
-random = [3, False, "red"]
+dice = [0,1,2,3,4,5,6]
+type(dice)
 ```
 :::
 
@@ -138,7 +154,7 @@ Using the functions below, we can answer some interesting questions about the fi
 ---
 
 ::: {#exr-}
-Import the Numpy module under the alias `np`
+Import the Numpy module under the alias `np`.
 :::
 
 :::{.sol}
@@ -155,7 +171,7 @@ print('\u200b')
 :::
 
 ::: {#exr-}
-Load the file `"spikes.npy"` into a numpy array
+Load the file `"spikes.npy"` into a numpy array.
 :::
 
 :::{.sol}
@@ -189,7 +205,7 @@ print('\u200b')
 :::
 
 ::: {#exr-}
-What is the duration of the recording (assuming the recording stopped after the last spike was recorded)
+What is the duration of the recording (assuming the recording stopped after the last spike was recorded)?
 :::
 
 :::{.sol}
@@ -206,7 +222,7 @@ print('\u200b')
 :::
 
 ::: {#exr-}
-Compute the neuron's average firing rate (the number of spikes divided by the duration of the recording)
+Compute the neuron's average firing rate (the number of spikes divided by the duration of the recording).
 :::
 
 :::{.sol}
@@ -223,7 +239,7 @@ print('\u200b')
 :::
 
 ::: {#exr-}
-Compute the inter-spike intervals (i.e. the time differences between subsequent spikes)
+Compute the inter-spike intervals (i.e. the time differences between subsequent spikes).
 :::
 
 :::{.sol}
@@ -294,29 +310,38 @@ print('\u200b')
 
 Numpy also offers many functions for generating arrays.
 The simplest way to create an array is to convert a list but there are other functions for specific purposes like generating arrays of random numbers or numbers within a certain range.
-In this section, we are going to create different kinds of arrays
+Like variables, numpy arrays can have different data types.
+The type of an array is stored in the `.dtype` attribute.
+In this section, we are going to create and explore different kinds of arrays.
 
 | Code | Description |
 | ---  | ---|
-| `x = np.array([2,5,3])` | Turn the list `[2,5,3]` into a numpy array and assign it to the variable `x`|
+| `x = np.array([2,5,3])` | Create an array from the list `[2,5,3]` and assign it to the variable `x`|
 | `x = np.random.randn(100)` | Create an array with 100 normally-distributed random numbers and assign it to the variable `x` |
 | `x = np.arange(2,7)` | Create an array with all integers between 2 and (not inculding) 7 and assign it to the variable `x` |
 | `x = np.arange(2,7,0.3)` | Create an array with evenly spaced values between 2 and 7 with a step size of 0.3 and assign it to the variable `x`|
 | `x = np.linspace(2,3,10)` | Create an array with 10 evenly spaced values between 2 and 3 and assign it to the variable `x` |
+| `x.dtype` | Get the data type of the numpy array `x` |
 
 ---
 
-::: {#exr-}
-Turn the list `a` defined below into an array
+:::{#exm-}
+Create an array with from the list `[1, 2, 3]`, assign it to the variable `a` and print it's type.
 :::
 
 ```{python}
-a = [1, 2, 3]
+a = np.array([1,2,3])
+a.dtype
 ```
+
+:::{#exr-}
+Create an array with from the list `[0.1, 0.2, 0.3]`, assign it to the variable `b` and print it's type.
+:::
 
 :::{.sol}
 ```{python}
-np.array(a)
+b = np.array([0.1, 0.2, 0.3])
+b.dtype
 ```
 :::
 
@@ -327,18 +352,14 @@ print('\u200b')
 ```
 :::
 
-
-::: {#exr-}
-Turn the list `b` defined below into an array
+:::{#exr-}
+Create an array with from the list `[1, True, "a"]`, assign it to the variable `c` and print it's type.
 :::
-
-```{python}
-b = [1, True, "a"]
-```
 
 :::{.sol}
 ```{python}
-np.array(b)
+c = np.array([1, True, "a"])
+c.dtype
 ```
 :::
 
@@ -367,7 +388,7 @@ print('\u200b')
 :::
 
 ::: {#exr-}
-Create an array that contains all even numbers up to and inculding 100
+Create an array that contains all even numbers up to and inculding 100.
 :::
 
 :::{.sol}
@@ -401,7 +422,7 @@ print('\u200b')
 :::
 
 ::: {#exr-}
-Create an array of 10 normally-distributed random numbers and compute its mean and standard deviation
+Create an array of 10 normally-distributed random numbers and compute its mean and standard deviation.
 :::
 
 :::{.sol}
@@ -420,7 +441,7 @@ print('\u200b')
 :::
 
 ::: {#exr-}
-Now, create arrays with of 100 and 1000 normally-distributed random numbers and compute their means and standard deviations
+Now, create arrays with of 100 and 1000 normally-distributed random numbers and compute their means and standard deviations.
 :::
 
 :::{.sol}
@@ -445,7 +466,7 @@ print('\u200b')
 ::: {#exr-}
 Assume we recorded a signal with a duration of 20 seconds at a sampling rate of 100 Hz.
 Create an array of time points for this signal using both `np.arange()` and `np.linspace()`.
-The array should start at 0, end at 20 and contain 150 points for.
+The array should start at 0, end at 20 and contain 150 points per second.
 Are the arrays generated with the two methods identical?
 :::
 
@@ -480,25 +501,23 @@ my_list = list(my_array)
 
 To time our code, we are going to use the `%%timeit` command.
 Adding `%%timeit` at the top of a cell makes it so that running that cell displays the time it took to run the code.
-
----
-
-::: {#exm-}
-Estimate the time for computing the sum of `my_list` using Python's builtin `sum()` method with `%%timeit`.
-```{python}
-%%timeit
-sum(my_list)
-```
-:::
-
 Per default, the code is executed ten times in a loop and the result is averaged over all loops.
 This procedure is repeated seven times so that we get one average duration for each run.
 The reported numbers are the average duration across the seven runs and its standard deviation.
 
 ---
 
+::: {#exm-}
+Estimate the time for computing the sum of `my_list` using Python's builtin `sum()` method with `%%timeit`.
+:::
+
+```{python}
+%%timeit
+sum(my_list)
+```
+
 ::: {#exr-}
-Use `%%timeit` to estimate how long it takes to compute `np.sum()` of `my_array`
+Use `%%timeit` to estimate how long it takes to compute `np.sum()` of `my_array`.
 :::
 
 :::{.sol}
@@ -516,7 +535,7 @@ print('\u200b')
 :::
 
 ::: {#exr-}
-Use `%%timeit` to estimate how long it takes for Python's builtin `max()` function to find the maximum of `my_list`
+Use `%%timeit` to estimate how long it takes for Python's builtin `max()` function to find the maximum of `my_list`.
 :::
 
 :::{.sol}
@@ -534,7 +553,7 @@ print('\u200b')
 :::
 
 ::: {#exr-}
-Use `%%timeit` to estimate how long it takes for the `np.max()` function to find the maximum of `my_array`
+Use `%%timeit` to estimate how long it takes for the `np.max()` function to find the maximum of `my_array`.
 :::
 
 :::{.sol}
@@ -553,7 +572,7 @@ print('\u200b')
 
 ::: {#exr-}
 The code below estimates the time it takes to multiply every element of `my_list` by 2.
-Use `%%timeit` to test how long it takes to multiply `my_array` by 2 (hint: use the `*` operator)
+Use `%%timeit` to test how long it takes to multiply `my_array` by 2 (hint: use the `*` operator).
 :::
 
 ```{python}
