@@ -1,0 +1,474 @@
+---
+title: "Analyzing Tabular Data with Pandas"
+engine: Jupyter
+format: ipynb
+filters:
+  - assign
+number-sections: true
+number-depth: 1
+---
+
+In many analyses, it is useful to organize data in a tabular format.
+Tables are great because they allow us to store heterogeneous data and assign names to columns which makes exploration more intuitive.
+The most popular library for working with tabular data in Python is called `pandas` which derives from **pan**el **da**ta.
+In this section we are going to learn how to use `pandas` and how it interfaces with other tools to create a powerful ecosystem for data analysis.
+At the core of pandas is the `DataFrame` - an object that stores two-dimensional tabular data.
+Variables that store data frames are commonly called `df`.
+Most of pandas functionalities come as so called methods of the data frame object.
+Methods are called by typing the variable name and the method name separated by a dot.
+For example: `df.head()` will call the `.head()` method of the data frame `df`.
+If you are not used to this syntax, don't worry - all sections contain examples for how the respective methods are used.
+
+To install the packages required for this session, execute the cell below.
+
+```{python}
+!pip install pandas seaborn pingouin
+```
+
+## Reading and Writing Tabular Data
+
+There are many different file formats for tabular data that pandas supports (for a full list, see [this website](https://pandas.pydata.org/docs/user_guide/io.html)).
+One of the most commonly used formats is CSV which stands for comma-separated values.
+A CSV file contains plain text where items are separated by commas.
+Because it is plain text, CSV is independent of the programming language which makes it a useful interoperable standard.
+In this section, we are going to learn how to read data from a CSV file into `pandas` and how to write it back to the CSV format.
+
+| Code | Description |
+| --- | --- |
+| `import pandas as pd` | Import the `pandas` module under the alias `pd` |
+| `df = pd.read_csv("mydata.csv")` | Read the file `"mydata.csv"` into a pandas data frame and assign it to the variable `df` |
+| `df.head(5)` | Print the first 5 rows of `df` |
+| `df.to_csv("mydata.csv")` | Read the file `"mydata.csv"` into a pandas data frame and assign it to the variable `df` |
+
+
+:::{#exr-}
+Import the `pandas` library under the alias `pd`.
+:::
+
+:::{.sol}
+```{python}
+import pandas as pd
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+:::{#exr-}
+Read the file `salaries.csv` into a data frame and assign it to a variable called `df`.
+:::
+
+:::{.sol}
+```{python}
+df = pd.read_csv("salaries.csv")
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+:::{#exr-}
+Print the first 3 rows of the data frame `df`.
+:::
+
+:::{.sol}
+```{python}
+df.head(3)
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+:::{#exr-}
+Get the first 3 rows of `df` and assign them to another variable called `new_df`. Write `new_df` to a file called `new_salaries.csv`.
+:::
+
+:::{.sol}
+```{python}
+new_df = df.head(3)
+new_df.to_csv("new_salaries.csv")
+```
+:::
+
+:::{#exr-}
+Open `new_salaries.csv` in your editor (simply click on it in the file explorer) and manually edit the file to append a new individual with name `Jim` age `32` city `Kansas`, salary `72000` and Department `HR`. Save the edited file, then load `new_salaries.csv` and print it to make sure your edit was stored.
+:::
+
+:::{.sol}
+```{python}
+pd.read_csv("new_salaries.csv")
+```
+:::
+
+## Exploring a Data Set in Pandas
+
+Now that we know how to read CSV files, we can start working with some actual data!
+In this section, we are going to analyze demographic data from passengers of the Titanic which are stored in the file `titanic.csv`.
+Once we loaded the data into a data frame, we can access a given column by providing its name as a string inside square brackets.
+For example, `df["age"]` will return the column `"age"` in the data frame `df`.
+By extracting individual columns and using methods like `.max()` or `.mean()`, one can quickly get an overview of the data stored in a table.
+
+| Code | Description |
+| --- | --- |
+| `df["var1"]` | Access the column with the name `"var1"` in `df` |
+| `df["var1"].min()` | Get the minimum value of column `"var1"` |
+| `df["var1"].max()` | Get the maximum value of column `"var1"` |
+| `df["var1"].mean()` | Compute the mean value of column `"var1"` |
+| `df["var1"].unique()` | Get all unique values of column `"var1"` |
+| `df["var1"].value_counts()` | Get all unique values of column `"var1"` |
+
+---
+
+:::{#exr-}
+Read the file `titanic.csv` into a pandas data frame and assign it to the variable `df`.
+:::
+
+:::{.sol}
+```{python}
+df = pd.read_csv("titanic.csv")
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+:::{#exr-}
+Get the column `"survived"` from `df`.
+:::
+
+:::{.sol}
+```{python}
+df["survived"]
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+:::{#exr-}
+What is the mean fare that passengers on the Titanic paid?
+:::
+
+:::{.sol}
+```{python}
+df["fare"].mean()
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+:::{#exr-}
+What is the minimum and maximum `"age"` of the Titanic's passengers?
+:::
+
+:::{.sol}
+```{python}
+print(df["age"].min())
+print(df["age"].max())
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+
+:::{#exr-}
+What are the different `"deck"`s on the Titanic?
+:::
+
+:::{.sol}
+```{python}
+df["deck"].unique()
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+:::{#exr-}
+What is the most common `"embark_town"` for passengers of the Titanic?
+:::
+
+:::{.sol}
+```{python}
+df["embark_town"].value_counts()
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+## Filtering a Data Frame
+
+Just like arrays, a data frame can be filtered using Boolean masks.
+The process is exactly the same: you create a mask of `True` and `False` values by applying a logical condition to a data frame. Then, you apply it to the data frame to extract the values where the mask equals `True`.
+This is very useful for statistical analysis.
+For example, we could check whether the average age of passengers differs between sexes by extracting the values where `df["sex"]=="male"` and `df["sex"]=="female"` and computing their respective means.
+
+| Code | Description |
+| --- | --- |
+| `mask = df["var2"]=="a"` | Create a `mask` of Boolean values that is `True` where the value of column `"var1"` is `"a"` and `False` otherwise |
+| `mask = df["var1"]>=0` | <;Create a `mask` of Boolean values that is `True` where the value of column `"var1"` is greater or equal to `0` and `False` otherwise |
+| `mask = df["var1"].isin([1,2,3])` | Create a `mask` of Boolean values that is `True` where the value of column `"var1"` is contained in the list `[1,2,3]` and `False` otherwise |
+| `df_filtered = df[mask]` | Get the rows of `df` where the `mask` is `True` and assign this new, filtered, data frame to a variable `df_filtered` |
+
+
+:::{#exr-}
+Get the data from all passengers on `deck` E.
+:::
+
+:::{.sol}
+```{python}
+mask = df["deck"] == "E"
+df[mask]
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+:::{#exr-}
+Is the survival rate higher for male or female passengers?
+:::
+
+:::{.sol}
+```{python}
+mask = df["sex"] == "male"
+print(df[mask]["survived"].mean())
+print(df[~mask]["survived"].mean())
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+:::{#exr-}
+What was the average `fare` paid by passengers that survived and those that didn't?
+:::
+
+:::{.sol}
+```{python}
+mask = df["survived"]==1
+print(df[mask]["fare"].mean())
+print(df[~mask]["fare"].mean())
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+
+:::{#exr-}
+How are the passengers in `"pclass"` 1 distributed across the `"embark_town"`s compared to those in `"pclass"` 3?
+:::
+
+:::{.sol}
+```{python}
+mask = df["pclass"]==1
+print(df[mask]["embark_town"].value_counts())
+mask = df["pclass"]==3
+print(df[mask]["embark_town"].value_counts())
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+## The Pandas Ecosystem
+
+Another advantage of `pandas` is its integration with other software which creates a powerful ecosystem for data analysis.
+In this section we are going to explore two such libraries: `seaborn`, a tool for visualizations and `pingouin`, a package for statistical analysis.
+Both libraries provide a similar interface where you pass a data frame as `data` and specify variables based on their column name.
+This homogeneous interface makes data analysis within the pandas framework very convenient.
+
+### Visualization with Seaborn
+
+| Code | Description |
+| --- | --- |
+| `import seaborn as sns` | Import the seaborn library under the alias `sns` |
+| `sns.catplot(data=df, x='var1', y='var2')` | Create a `cat`egorical plot for the data frame `df` with `"var1"` on the x-axis and `"var2"` on the y-axis |
+| `sns.catplot(data=df, x='var1', y='var2', kind="violin")` | Plot the same data but as a violin plot |
+| `sns.catplot(data=df, x='var1', y='var2', hue="var3")` | Plot the same data but add color or `hue` to encode `"var3"`|
+
+:::{#exr-}
+Import the `seaborn` library under the alias `sns`.
+:::
+
+:::{.sol}
+```{python}
+import seaborn as sns
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+:::{#exr-}
+Create a `catplot` to visualize the distribution of `"fare"` across the different classes (`"pclass"`).
+:::
+
+:::{.sol}
+```{python}
+sns.catplot(data=df, x="pclass", y="fare")
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+:::{#exr-}
+Create a bar plot for the same data by specifying `kind="bar"`.
+:::
+
+:::{.sol}
+```{python}
+sns.catplot(data=df, x="embark_town", y="fare", kind="bar")
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+:::{#exr-}
+Add a color or `hue` to the bar plot to encode passenger `sex`.
+:::
+
+:::{.sol}
+```{python}
+sns.catplot(data=df, x="embark_town", y="fare", kind="bar", hue="sex")
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+### Statistical Analysis with Pingouin
+
+| Code | Description |
+| --- | --- |
+| `import pingouin as pg` | Import the `pingouin` library under the alias `pg` |
+| `pg.anova(data=df, dv="var1", between="var2")` | Perfom an analysis of variance (ANOVA) to compare the difference in the dependent variable `"var1"` between groups in `"var2"` |
+
+
+:::{#exr-}
+Import the `pingouin` library under the alias `pg`.
+:::
+
+:::{.sol}
+```{python}
+import pingouin as pg
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+:::{#exr-}
+Perform an analysis of variance (ANOVA) to compare the difference in the dependent variable `"fare"` between `"embark_town"`s. 
+:::
+
+:::{.sol}
+```{python}
+pg.anova(data=df, dv="fare", between="embark_town")
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+:::{#exr-}
+Calculate the pairwise correlations for all columns in `df`. Assign the data frame returned by `pg.pariwise_corr` to a new variable called `df_corr` and print the columns `"X"`, `"Y"` and `"r"`
+:::
+
+:::{.sol}
+```{python}
+df_corr = pg.pairwise_corr(data=df)
+df_corr[["X", "Y", "r"]]
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
