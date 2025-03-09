@@ -1,19 +1,27 @@
-# Visualizing Data with Matplotlib and Seaborn
+---
+title: "Visualizing Data with Matplotlib and Seaborn"
+engine: Jupyter
+format: ipynb
+filters:
+  - assign
+number-sections: true
+number-depth: 3
+---
 
 Data visualizations are a key component of every scientific publication. In this session, we are going to learn how to visualize data using the libraries Matplotlib and Seaborn.
 We are going to explore the libraries and their interaction by analyzing the Gapminder data set which contains data on population size, life expectancy and fertility from 63 countries over a time span of 50 years.
 To install the packages required for this session, execute the cell below.
 
 ```{python}
-!pip install pandas seaborn matplotlib scipy
+#| eval: false
+%pip install pandas seaborn matplotlib scipy
 ```
 
 ## Plotting Time-Series Data with Matplotlib
 
 One very common kind of data are time-series: sequential points, sampled at regular intervals.
 To plot time-series data, we can use the function `plt.plot(x, y)` where the variable `x` contains the time points and `y` contains the values sampled at those time points.
-To explore this, we are going to visualize changes in fertility rates over time in different countries.
-Per default, Matplotlib will show plots immediately after executing a cell.
+To explore this, we are going to visualize changes in fertility rates over time in different countries. By default, Matplotlib will show plots immediately after executing a cell.
 Thus, if we wish to do several things, like drawing a plot and labeling it, we'll have to include the respective commands in the same cell.
 
 |Code | Description |
@@ -21,10 +29,11 @@ Thus, if we wish to do several things, like drawing a plot and labeling it, we'l
 | `from matplotlib import pyplot as plt` | Import `pyplot` module from the `matplotlib` library under the alias `plt` |
 | `plt.plot(x, y)` | Plot the points at the given `x` and `y` coordinates and connect them with a line |
 | `plt.plot(x, y, label="label1")` | Add the label `"label1"` to the plotted data |
-| `plt.plot(x, y, marker="x")` | Mark the data points with a cross |
+| `plt.plot(x, y, marker="x", linewidth=2)` | Mark the data points with a cross |
+| `plt.plot(x, y, color="black", linewidth=2)` | Set the color to `"black"` and the linewidth to `2` |
 | `plt.legend()` | Add a legend that displays the labels in the plot |
 | `plt.xlabel("xval")` | Label the x-axis with `"xval"` |
-| `plt.ylabel("yval")` | Label the x-axis with `"yval"` |
+| `plt.ylabel("yval")` | Label the y-axis with `"yval"` |
 
 :::{#exr-}
 Execute the cell below to load the `"gapminder.csv"` file, assign it to a data frame `df` and filter it to extract the data for `"Germany"` and the `"United States"`.
@@ -98,6 +107,24 @@ print('\u200b')
 :::
 
 :::{#exr-}
+Plot the fertility rates (`"fertility"`) across time (`"year"`) for Germany (`df_ger`) and set the `linewidth` to `1.5` and the color to green.
+:::
+
+:::{.sol}
+```{python}
+plt.plot(df_ger['year'], df_ger['fertility'], color="green", linewidth=1.5)
+plt.show()
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+:::{#exr-}
 Plot the fertility rates (`"fertility"`) across time (`"year"`) for the United States (`df_usa`) and add a `marker`.
 :::
 
@@ -136,7 +163,7 @@ print('\u200b')
 :::
 
 :::{#exr-}
-Plot the fertility rates (`"fertility"`) across time (`"year"`) for Germany (`df_ger`) and the United States (`df_usa`). Add a `label` to each line and add a `plt.legend()`
+Plot the fertility rates (`"fertility"`) across time (`"year"`) for Germany (`df_ger`) and the United States (`df_usa`) and label the x- and y-axis with `"Year"` and `"Fertility Rate"`. Add a `label` to each line and add a `plt.legend()`.
 :::
 
 :::{.sol}
@@ -170,7 +197,8 @@ Once we are done, we can save our result to an image using the `plt.savefig()` f
 | --- | --- |
 | `plt.subplots(2, 2, 1)` | Draw the first (i.e. upper left) subplot in a 2-by-2 grid |
 | `plt.subplots(2, 2, 4)` | Draw the fourth (i.e. lower right) subplot in a 2-by-2 grid |
-| `plt.savefig("myfig.png", dpi=300)` | Store the current figure as `"myfile.png"` with a resolution of 300 `dpi` (dots per inch) |
+| `plt.tight_layout()` | Adjust the layout so that the subplots don't overlap |
+| `plt.savefig("myfig.png", dpi=300)` | Store the current figure as `"myfig.png"` with a resolution of 300 `dpi` (dots per inch) |
 
 :::{#exm-}
 Create a 2-by-2 grid of (empty) subplots
@@ -210,7 +238,7 @@ print('\u200b')
 ```
 :::
 
-:::{#exr-}
+:::{#exr-subplots}
 Create a 1-by-2 grid of subplots. On the first one, plot the `"fertility"` rate and, one the second one, the population size (`"pop"`) over time (`"year"`) for Germany (`df_ger`).
 Label the y-axes `"Fertility Rate"` and `"Population Size"` and the x-axes `"Year"`
 :::
@@ -236,10 +264,36 @@ print('\u200b')
 ```
 :::
 
+:::{#exr-}
+Re-create the plot from @exr-subplots but call `plt.tight_layout()`.
+:::
+
+:::{.sol}
+```{python}
+plt.subplot(1,2,1)
+plt.plot(df_ger["year"], df_ger["fertility"] )
+plt.xlabel("Year")
+plt.ylabel("Fertility Rate")
+plt.subplot(1,2,2)
+plt.plot(df_ger["year"], df_ger["pop"] )
+plt.xlabel("Year")
+plt.ylabel("Population Size")
+plt.tight_layout()
+plt.show()
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
 :::{#exr-us}
 Create a 3-by-1 grid of subplots.
 On the first one, plot the `"fertility"` rate and, on the second one, the population size (`"pop"`) and on the third one the life expectancy (`"life_expect"`) over time (`"year"`) for the United States (`df_usa`).
-Label the x-axes with `"Fertility Rate"`, `"Population Size"` and `"Life Expectancy"`. Label the x-axis with `"Year"` only for the last subplot.
+Label the x-axes with `"Fertility Rate"`, `"Population Size"` and `"Life Expectancy"`. Label the x-axis with `"Year"`, only for the last subplot.
 :::
 
 :::{.sol}
@@ -295,7 +349,7 @@ print('\u200b')
 
 ## Plotting and Quantifying the Relationship between Variables
 
-Visualizations are a great for understanding the relationship between variables.
+Visualizations are great for understanding the relationship between variables.
 However, we also may want to quantify that relationship statistically.
 A simple way to do this is to fit a linear model to the data.
 The linear model describes the relationship between a dependent variable `x` and an independent variable `y` as a line.
@@ -371,7 +425,7 @@ print('\u200b')
 :::
 
 :::{#exr-}
-execute the cell below to create the `line()` function which takes in `x` values, and intercept `a` and a slope `b` and returns the corresponding y-values.
+Execute the cell below to create the `line()` function which takes in `x` values, and intercept `a` and a slope `b`, and returns the corresponding y-values.
 Then call `line()` and pass the life expectancy values in `df["life_expect"]`, the intercept `a` and the slope `b` to obtain the fertility rates predicted by the model.
 Store those in a new variable called `fertility_pred`.
 :::
@@ -429,9 +483,9 @@ print('\u200b')
 
 ## Combining Matplotlib with Seaborn
 
-Matplotlib takes an **imperative** approach to visualization where we specific exactly what we want to draw.
+Matplotlib takes an **imperative** approach to visualization where we specify exactly what we want to draw.
 This provides fine-grained control but also requires writing a lot of code.
-On the contrary, Seaborn takes a more **declarative** approach where we specify what data we want to visualize.
+In contrast, Seaborn takes a more **declarative** approach where we specify what data we want to visualize.
 This allows us to create detailed visualizations without having to worry about the low level implementation.
 Finally, we can combine the advantages both approaches and use Seaborn to create and Matplotlib to customize our visualizations.
 In this section, we will use Seaborn to create detailed visualizations of the Gapminder data.
@@ -491,7 +545,7 @@ print('\u200b')
 
 :::{#exm-}
 Create the first subplot in a 1-by-2 grid and assign the returned axes object to a variable called `ax1`.
-Then, create the scatter plot from @exr-sns_scatter and draw it to the subplot by using the `ax` argument of `sns.scatter()`.
+Then, create the scatter plot from @exr-sns_scatter and draw it to the subplot by using the `ax` argument of `sns.scatterplot()`.
 :::
 
 ```{python}
@@ -501,7 +555,7 @@ sns.scatterplot(x=df["life_expect"], y=df["fertility"], hue=df["continent"], ax=
 
 :::{#exr-sns_subplots}
 Create two subplots in a 1-by-2 grid and assign the returned axes to two variables `ax1` and `ax2`.
-Then, create the scatter plot from @exr-sns_scatter and the kde plot from @exr-sns_kde and draw them to the subplots `ax1` and `ax2` by using the `ax` argument of `sns.scatterplot` and `sns.kdeplot`.
+Then, create the scatter plot from @exr-sns_scatter and the kde plot from @exr-sns_kde and draw them to the subplots `ax1` and `ax2` by using the `ax` argument of `sns.scatterplot()` and `sns.kdeplot()`. Use `plt.tight_layout()` if necessary.
 :::
 
 :::{.sol}
@@ -530,8 +584,8 @@ ax1 = plt.subplot(1,2,1)
 sns.scatterplot(x=df["life_expect"], y=df["fertility"], hue=df["continent"], ax=ax1)
 ax2 = plt.subplot(1,2,2)
 sns.kdeplot(x=df["fertility"], hue=df["year"], ax=ax2)
-ax1.set(xlabel="life expectancy in years", ylabel="fertility rate")
-ax2.set(xlabel="fertility rate")
+ax1.set(xlabel="Life Expectancy in Years", ylabel="Fertility Rate")
+ax2.set(xlabel="Fertility Rate")
 ```
 :::
 

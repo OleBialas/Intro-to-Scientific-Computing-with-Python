@@ -15,19 +15,26 @@ Indexing simply means getting the element at a specific position.
 Python starts counting at 0, so `x[0]` will get the **1st** element of `x`.
 Slicing means getting all values within a certain range by providing a start and stop position.
 When we index and slice multi-dimensional arrays, we must provide multiple coordinates - one per dimension.
-We can also omitt a value to indicate that we want to get **all** values along that dimension
+We can also omit a value to indicate that we want to get **all** values along that dimension
+
+Execute the cell below to install the packages required for this notebook.
+
+```{python}
+#| eval: false
+%pip install numpy
+```
 
 | Code | Description |
 | --- | --- |
 | `import numpy as np` | Import the module `numpy` under the alias `np` |
-| `x = np.arange(2,7)` | Create an array with all integers between 2 and (not inculding) 7 and assign it to the variable `x` |
+| `x = np.arange(2,7)` | Create an array with all integers between 2 and (not including) 7 and assign it to the variable `x` |
 | `x[0]` | Get the 1st element of `x` |
 | `x[-1]` | Get the last element of `x` |
-| `x[2:5]` | Get the 3rd 4th and 5th element of `x` |
+| `x[2:5]` | Get the 3rd 4th and 5th elements of `x` |
 | `x[:5]` | Get everything up to and including the 5th element of `x` |
 | `x[2, 1]` | Get the element in the 3rd row and 2nd column of  the 2-dimensional array `x` |
 | `x[0, :]` | Get the whole first row of `x` |
-| `x[1:5, 2]` | Get the values from rows 2 trough 5 in the 3rd column of `x` |  
+| `x[1:5, 2]` | Get the values from rows 2 through 5 in the 3rd column of `x` |  
 
 ---
 
@@ -227,7 +234,7 @@ By creating different masks we can vary the criteria for selecting data from an 
 | --- | --- |
 | `mask = x>1` | Create a `mask` that is `True` where `x` is greater than `1` and `False` otherwise |
 | `mask = x=="k"` | Create a `mask` that is `True` where `x` is equal to `"k"` and `False` otherwise |
-| `mask = x<=1` | Create a `mask` that is `True` where `x` is smaller or equal to `1` and `False` otherwise |
+| `mask = x<=1` | Create a `mask` that is `True` where `x` is smaller than or equal to `1` and `False` otherwise |
 | `x[mask]` | Get all elements of `x` where the `mask` is `True` |
 | `np.sum(mask)` | Sum all elements of the `mask` (`True` counts as 1, `False` as 0) |
 | `np.size(mask)` | Get the number of elements in `x` |
@@ -280,7 +287,7 @@ print('\u200b')
 :::
 
 :::{#exr-}
-Get all values of `x` that are smaller or equal to 2.
+Get all values of `x` that are smaller than or equal to 2.
 :::
 
 :::{.sol}
@@ -297,12 +304,12 @@ print('\u200b')
 :::
 
 :::{#exr-}
-The cell below defines an array containing a gene sequence. Get all adenine (`"A"`) nucleotides from this array.
+Execute the cell below to define an array containing a gene sequence. Then, get all adenine (`"A"`) nucleotides from this array.
+:::
 
 ```{python}
 seq = np.array(["A", "T", "G", "C", "G", "T", "A", "C", "G", "T", "T", "A", "G", "C", "T", "A", "G", "G", "C", "T", "T", "A", "C", "G", "A", "T", "C", "G", "T", "A"])
 ```
-:::
 
 :::{.sol}
 ```{python}
@@ -363,7 +370,7 @@ When we use Numpy functions to compute properties like mean or standard deviatio
 
 |Code | Description |
 | --- | --- |
-| `x=np.load("myfile.npy")` | Load the data stored in `"myfile.npy"` and assign the them to the variable `x` |
+| `x=np.load("myfile.npy")` | Load the data stored in `"myfile.npy"` and assign them to the variable `x` |
 | `np.save("newfile.npy", x)` | Save the array `x` to a file called `"newfile.npy"` |
 | `np.shape(x)` | Get the shape of `x` (i.e. the size of all dimensions of `x`) |
 | `x[0, :, :]` | Select the 1st element along the 1st dimension of the 3D array `x` |
@@ -398,7 +405,7 @@ How many epochs, channels and time points are there in the `eeg` data?
 
 :::{.sol}
 ```{python}
-print(f"There are {eeg.shape[0]} epochs, {eeg.shape[1]} channels and {eeg.shape[2]} timepoints.")
+print(f"There are {eeg.shape[0]} epochs, {eeg.shape[1]} channels and {eeg.shape[2]} time points.")
 ```
 :::
 
@@ -444,7 +451,7 @@ print('\u200b')
 :::
 
 :::{#exr-}
-Select the from the first half of all time points for EEG channels 10 to 20.
+Select the data from the first half of all time points for EEG channels 10 to 20.
 :::
 
 :::{.sol}
@@ -536,8 +543,8 @@ print('\u200b')
 
 ## Linking Arrays with Filtering
 
-Filtering can also be used to used to link to different arrays. In this section we are going to load an array that contains the time points for the epochs from the previous array. We can use that array to define a mask and then apply that mask to the array of epoch. 
-Numpy also allow us to combine multiple masks using the and/or operators `&` and `|`.
+Filtering can also be used to link different arrays. In this section we are going to load an array that contains the time points for the epochs from the previous array. We can use that array to define a mask and then apply that mask to the array of epoch. 
+Numpy also allows us to combine multiple masks using the and/or operators `&` and `|`.
 Combining two Boolean arrays with `&` results in an array that is only `True` when both arrays are `True`.
 Combining them with `|` results in an array that is `True` when either array is `True`.
 In this section we are going to use filtering to link the EEG data with the array containing the time points at which the data were recorded (time point 0 represents the stimulus onset).
@@ -622,6 +629,13 @@ Get all of the `eeg` data that was recorded before 0.1 and after 0.2 seconds and
 ```{python}
 mask = (times>=0.1) | (times<=0.2)
 eeg[:,:,mask]
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
 ```
 :::
 

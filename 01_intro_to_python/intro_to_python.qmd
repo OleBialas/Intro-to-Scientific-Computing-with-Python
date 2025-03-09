@@ -10,26 +10,36 @@ number-depth: 2
 
 Welcome to the first notebook of this course!
 In this notebook, we are going to learn how to represent different kinds of data in Python.
-We are also taking our first look at creating arrays in Numpy and we are going to analyze some actual neuroscience data.Finally, we are going to explore the differences in performance between Numpy and builtin Python functions.
+We are also taking our first look at creating arrays in Numpy and we are going to analyze some actual neuroscience data. Finally, we are going to explore the differences in performance between Numpy and built-in Python functions.
+
+Execute the cell below to install the packages required for this notebook.
+
+```{python}
+#| eval: false
+%pip install numpy
+```
 
 ## Storing Data in Variables
 
-In the first section, we are going to learn how to represent different kinds of data and store them in varibles.
-We are going to encounter four baisc data types: integers, floating-point numbers, boolean values and text strings.
+In the first section, we are going to learn how to represent different kinds of data and store them in variables.
+We are going to encounter four basic data types: integers, floating-point numbers, Boolean values and text strings.
 We are also going to use lists which are collections of data.
 Data can be assigned to a variable using the `=` operator which takes the value on the right and assigns it to the variable on the left.
 In this sense, a variable is simply a container that we can use to store and access data.
 The data type of a variable can be determined with the `type()` function.
-We can also convert varibles from one type to another - for example, the `int()` function will try to convert a variable to an integer.
+We can also convert variables from one type to another - for example, the `int()` function will try to convert a variable to an integer.
+Finally, Python provides operators for the arithmetic operations like addition `+`, subtraction `-`, multiplication `*` and division `/`.
+Let's test how this works!
 
 | Code | Description |
 | ---  | ---|
-| `x = 3.14` | Assign the floatig-point number `3.14` to the variable `x` |
+| `x = 3.14` | Assign the floating-point number `3.14` to the variable `x` |
 | `x = True` | Assign the boolean value `True` to the variable `x` |
 | `x = "hello"` | Assign the string `"hello"` to the variable `x` |
 | `x = [1,2,3]` | Assign the list of integers `[1,2,3]` to the variable `x`|
-| `type(x)` | Get the data type of `x` |
-| `int(x)` | Convert the variable `x` to an integer |
+| `type(x)` | Get the data type of variable `x` |
+| `int(x)` | Convert the variable `x` to an integer, if possible |
+| `+`, `-`, `*`, `/` | Add, subtract, multiply, divide values |
 
 ---
 
@@ -41,6 +51,23 @@ Assign the integer value `1` to a variable called `one` and print its `type()`.
 one = 1
 type(one)
 ```
+
+:::{#exr-}
+Subtract 0.5 from the variable `one`
+:::
+
+:::{.sol}
+```{python}
+one - 0.5
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
 
 ::: {#exr-}
 Assign the floating value `0.001` to a variable called `small` and print its type.
@@ -60,8 +87,8 @@ print('\u200b')
 ```
 :::
 
-::: {#exr-}
-Assign the boolean value `False` to a variable called `this_is_false` and convert it to an integer.
+:::{#exr-}
+Assign the Boolean value `False` to a variable called `this_is_false` and convert it to an integer.
 :::
 
 :::{.sol}
@@ -79,7 +106,7 @@ print('\u200b')
 :::
 
 ::: {#exr-}
-Assign the boolean value `True` to a variable called `this_is_true` and convert it to an integer.
+Assign the Boolean value `True` to a variable called `this_is_true` and convert it to an integer.
 :::
 
 :::{.sol}
@@ -114,6 +141,23 @@ print('\u200b')
 ```
 :::
 
+:::{#exr-}
+Add the string `"hello"` to the variable `goodbye`
+:::
+
+:::{.sol}
+```{python}
+goodbye + "hello"
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
 ::: {#exr-}
 Assign a list with the number 0 through 6 to a variable called `dice` and print its type
 :::
@@ -132,11 +176,23 @@ print('\u200b')
 ```
 :::
 
+:::{#exr-}
+Multiply the list `dice` by 2. Try to add 1 to it.
+:::
+
+:::{.sol}
+```{python}
+#| eval: false
+dice * 2
+dice + 1
+```
+:::
+
 ## Analyzing Neural Spiking Data with Numpy
 
-Numpy offerst many useful functions for data analysis - let's test tem on some actual neuroscience data!
+Numpy offers many useful functions for data analysis - let's test them on some actual neuroscience data!
 In this section, we are going to load and analyze the spiking of a neuron in the primary visual cortex of a mouse.
-The spikes are represented as a sorted list of time points where spikes where observed.
+The spikes are represented as a sorted list of time points where spikes were observed.
 For example, `[0.05, 0.24, 1.5]` indicates that a spike was observed 50, 240 and 1500 milliseconds after the start of the recording.
 Using the functions below, we can answer some interesting questions about the firing behavior of a given neuron.
 
@@ -149,7 +205,7 @@ Using the functions below, we can answer some interesting questions about the fi
 | `np.max(x)` | Get the maximum value of the array `x` |
 | `np.mean(x)` | Compute the mean of all values in the array `x` |
 | `np.std(x)` | Compute the standard deviation of all values in the array `x` |
-| `np.diff(x)` | Compute the difference between the elements in the array `x` |
+| `np.diff(x)` | Compute the difference between consecutive elements in the array `x` |
 
 ---
 
@@ -171,7 +227,7 @@ print('\u200b')
 :::
 
 ::: {#exr-}
-Load the file `"spikes.npy"` into a numpy array.
+Load the file `"spikes.npy"` into a Numpy array.
 :::
 
 :::{.sol}
@@ -222,7 +278,7 @@ print('\u200b')
 :::
 
 ::: {#exr-}
-Compute the neuron's average firing rate (the number of spikes divided by the duration of the recording).
+Compute the neuron's average firing rate (the total number of spikes divided by the duration of the recording).
 :::
 
 :::{.sol}
@@ -310,7 +366,7 @@ print('\u200b')
 
 Numpy also offers many functions for generating arrays.
 The simplest way to create an array is to convert a list but there are other functions for specific purposes like generating arrays of random numbers or numbers within a certain range.
-Like variables, numpy arrays can have different data types.
+Like variables, Numpy arrays can have different data types.
 The type of an array is stored in the `.dtype` attribute.
 In this section, we are going to create and explore different kinds of arrays.
 
@@ -318,7 +374,7 @@ In this section, we are going to create and explore different kinds of arrays.
 | ---  | ---|
 | `x = np.array([2,5,3])` | Create an array from the list `[2,5,3]` and assign it to the variable `x`|
 | `x = np.random.randn(100)` | Create an array with 100 normally-distributed random numbers and assign it to the variable `x` |
-| `x = np.arange(2,7)` | Create an array with all integers between 2 and (not inculding) 7 and assign it to the variable `x` |
+| `x = np.arange(2,7)` | Create an array with all integers between 2 and (not including) 7 and assign it to the variable `x` |
 | `x = np.arange(2,7,0.3)` | Create an array with evenly spaced values between 2 and 7 with a step size of 0.3 and assign it to the variable `x`|
 | `x = np.linspace(2,3,10)` | Create an array with 10 evenly spaced values between 2 and 3 and assign it to the variable `x` |
 | `x.dtype` | Get the data type of the numpy array `x` |
@@ -326,7 +382,7 @@ In this section, we are going to create and explore different kinds of arrays.
 ---
 
 :::{#exm-}
-Create an array with from the list `[1, 2, 3]`, assign it to the variable `a` and print it's type.
+Create an array from the list `[1, 2, 3]`, assign it to the variable `a` and print its type.
 :::
 
 ```{python}
@@ -334,8 +390,26 @@ a = np.array([1,2,3])
 a.dtype
 ```
 
+
 :::{#exr-}
-Create an array with from the list `[0.1, 0.2, 0.3]`, assign it to the variable `b` and print it's type.
+Multiply the array `a` by 2 and add 1 to it
+:::
+
+:::{.sol}
+```{python}
+a * 2 + 1
+```
+:::
+
+:::{.direction}
+```{python}
+#| echo: false
+print('\u200b')
+```
+:::
+
+:::{#exr-}
+Create an array from the list `[0.1, 0.2, 0.3]`, assign it to the variable `b` and print its type.
 :::
 
 :::{.sol}
@@ -388,12 +462,12 @@ print('\u200b')
 :::
 
 ::: {#exr-}
-Create an array that contains all even numbers up to and inculding 100.
+Create an array that contains all even numbers up to and including 100.
 :::
 
 :::{.sol}
 ```{python}
-np.sum(np.arange(0, 100+2, 2))
+np.arange(0, 100+2, 2)
 ```
 :::
 
@@ -486,7 +560,7 @@ print('\u200b')
 :::
 
 
-## Quatifying Numpy's Performance
+## Quantifying Numpy's Performance
 
 One of the key advantages of Numpy is that it is a lot faster than basic Python.
 How much faster?
@@ -508,7 +582,7 @@ The reported numbers are the average duration across the seven runs and its stan
 ---
 
 ::: {#exm-}
-Estimate the time for computing the sum of `my_list` using Python's builtin `sum()` method with `%%timeit`.
+Estimate the time for computing the sum of `my_list` using Python's built-in `sum()` method with `%%timeit`.
 :::
 
 ```{python}
@@ -535,7 +609,7 @@ print('\u200b')
 :::
 
 ::: {#exr-}
-Use `%%timeit` to estimate how long it takes for Python's builtin `max()` function to find the maximum of `my_list`.
+Use `%%timeit` to estimate how long it takes for Python's built-in `max()` function to find the maximum of `my_list`.
 :::
 
 :::{.sol}
@@ -595,7 +669,7 @@ print('\u200b')
 :::
 
 ::: {#exr-}
-What is faster: multipying an array by 2 or adding the array to itself?
+What is faster: multiplying an array by 2 or adding the array to itself?
 :::
 
 :::{.sol}
@@ -609,7 +683,7 @@ my_array + my_array
 my_array*2
 ```
 
-They take roughy the same time
+They take roughly the same time
 :::
 
 :::{.direction}
