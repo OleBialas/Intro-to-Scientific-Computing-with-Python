@@ -1,5 +1,6 @@
-*.html
 *_files
 /.quarto/
 gapminder_us.png
 new_salaries.csv
+solution
+assign
