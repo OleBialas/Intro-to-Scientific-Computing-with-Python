@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Working with Multidimensional Arrays in Numpy</title>
+    
+    <!-- Load Reveal.js from CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/dracula.min.css">
+    <!-- Additional plugins if needed -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/monokai.min.css">
+</head>
+<body>
+        <div class="reveal">
+            <div class="slides">
+                <section> 
+                    <h2>Working with Multidimensional Arrays in Numpy</h2>
+                </section>
+                <section>
+                    <h2> Why Numpy?</h2>
+                    <div class="r-hstack" style="line-height: 1.8em;">
+                        <ul style="font-size: 38px;">
+
+                            <li data-fragment-index="0" class="fragment fade-left"> 
+                                Written in C, highly <b>performant</b>
+                            <li data-fragment-index="1" class="fragment fade-left"> 
+                                Allows <b>vectorized</b> operations
+                            <li data-fragment-index="2" class="fragment fade-left"> 
+                                Basis of the scientific <b>ecosystem</b>
+                            <li data-fragment-index="3" class="fragment fade-left"> 
+                                Handles <b>mutlidimensional</b> data
+                        </ul>
+                        <div class="r-vstack">
+                            <img data-src="python.png" style="width: 180px;" data-fragment-index="0" class="fragment fade-left">
+                            <img data-src="numpy.png" style="width: 300px; margin-top: -0.5em;" data-fragment-index="0" class="fragment fade-left">
+                            <img data-src="c.png" style="width: 150px; margin-top: -0.5em;" data-fragment-index="0" class="fragment fade-left">
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h2>Multidimensional Data</h2>
+                    <ul style="font-size: 38px; ">
+                        <li class="fragment fade-left"> Scientific data often has <b>multiple dimensions</b> (time, sensors, repetitions, subjects etc.)
+                        <li class="fragment fade-left"> Each dimension is represented in a separate <b> axis </b>
+                    <img data-src="arrays.png" height="400px" class="fragment fade-left" style="margin-top: -0.5em;">
+                </section>
+                <section>
+                    <h2> Epoched EEG Data </h2>
+                    <div class="r-hstack">
+                        <ul style="font-size: 38px; width: 50%;">
+                            <li class="fragment fade-left"> Same stimulus is displayed <b> repeatedly </b>
+                            <li class="fragment fade-left"> Recordings are <b>cropped</b> to a fixed epochs
+                            <li class="fragment fade-left"> Represented as <b> 3-D array </b> (epochs, channels, times)
+                        </ul>
+                    <div>
+                        <img data-src="cap.jpg" height="200px">
+                        <img data-src="waves.png" height="320px" style="margin-top: -0.5em;">
+                    </div>
+                    </div>
+                </section>
+
+
+    <!-- Load Reveal.js scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/notes/notes.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/markdown/markdown.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/highlight.min.js"></script>
+
+    <!-- Initialize Reveal.js -->
+    <script>
+        Reveal.initialize({
+            // Configuration options
+            hash: true, // Enable slide URL linking
+            slideNumber: true, // Show slide numbers
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        });
+    </script>
+                
+</body>
+</html>

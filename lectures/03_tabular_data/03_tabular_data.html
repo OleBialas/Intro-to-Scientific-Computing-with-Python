@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> Analyzing Tabular Data with Pandas </title>
+    
+    <!-- Load Reveal.js from CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/dracula.min.css">
+    <!-- Additional plugins if needed -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/monokai.min.css">
+</head>
+<body>
+        <div class="reveal">
+            <div class="slides">
+                <section> 
+                    <h2>Analyzing Tabular Data with Pandas</h2>
+                </section>
+
+                <section>
+                    <h2>The Problem with Excel</h2>
+                    <div class="r-hstack">
+                        <div class="r-vstack">
+                            <ul style="font-size: 32px;">
+                                <li data-fragment-index="0" class="fragment fade-left">
+                                    Bad at handling <b>large</b> data sets
+                                <li data-fragment-index="2" class="fragment fade-left">
+                                    Manual operations are <b>error-prone</b> and not reproducible
+                                <li data-fragment-index="4" class="fragment fade-left">
+                                    Automatic <b>conversions</b> threaten data integrity 
+                            </ul>
+                            <img data-src="excel_bad3.png" height="200px" data-fragment-index="5" class="fragment fade-left">
+                        </div>
+                        <div class="r-vstack">
+                            <img data-src="excel_bad1.png" width="500px" data-fragment-index="1" class="fragment fade-left">
+                            <img data-src="excel_bad2.png" width="500px" style="margin-top: -0.3em;" data-fragment-index="3" class="fragment fade-left">
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h2> Why use Pandas? </h2>
+                    <ul style="font-size: 32px;">
+                        <li class="fragment fade-left"> Intuitive and <b>accessible</b> design, resembling spreadsheets
+                        <li class="fragment fade-left"> Mature <b>ecosystem</b> for statistical analysis and visualization
+                        <li class="fragment fade-left"> Supports a wide range of <b>file formats</b> (including Excel)
+                        <li class="fragment fade-left"> Optimized for <b>performance</b> (uses Numpy under the hood)
+                    </ul>
+                    <img data-src="pandas.jpg" height="350px">
+                </section>
+                <section>
+                    <h2> The Titanic Dataset </h2>
+                    <div class="r-hstack">
+                        <ul style="font-size: 32px;">
+                            <li class="fragment fade-left"> Data from all <b>passengers</b>
+                            <li class="fragment fade-left"> Who was more likely to <b>survive</b>?
+                            <li class="fragment fade-left"> What's the <b>socio-economic</b> makeup?
+                        </ul>
+                        <img data-src="titanic.jpg", height="200px" style="margin-left: 0.5em;">
+                    </div>
+
+                    <table border="1" class="dataframe fragment fade-left" style="font-size: 24px;" >
+                      <thead>
+                        <tr style="text-align: right;">
+                          <th></th>
+                          <th>survived</th>
+                          <th>pclass</th>
+                          <th>sex</th>
+                          <th>age</th>
+                          <th>fare</th>
+                          <th>embark_town</th>
+                          <th>deck</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th>0</th>
+                          <td>1</td>
+                          <td>1</td>
+                          <td>female</td>
+                          <td>58.0</td>
+                          <td>146.5208</td>
+                          <td>Cherbourg</td>
+                          <td>B</td>
+                        </tr>
+                        <tr>
+                          <th>1</th>
+                          <td>1</td>
+                          <td>2</td>
+                          <td>female</td>
+                          <td>34.0</td>
+                          <td>10.5000</td>
+                          <td>Southampton</td>
+                          <td>F</td>
+                        </tr>
+                        <tr>
+                          <th>2</th>
+                          <td>1</td>
+                          <td>1</td>
+                          <td>female</td>
+                          <td>38.0</td>
+                          <td>227.5250</td>
+                          <td>Cherbourg</td>
+                          <td>C</td>
+                        </tr>
+                        <tr>
+                          <th>3</th>
+                          <td>0</td>
+                          <td>1</td>
+                          <td>male</td>
+                          <td>38.0</td>
+                          <td>153.4625</td>
+                          <td>Southampton</td>
+                          <td>C</td>
+                        </tr>
+                        <tr>
+                          <th>4</th>
+                          <td>0</td>
+                          <td>1</td>
+                          <td>female</td>
+                          <td>2.0</td>
+                          <td>151.5500</td>
+                          <td>Southampton</td>
+                          <td>C</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                </section>
+
+
+    <!-- Load Reveal.js scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/notes/notes.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/markdown/markdown.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/highlight.min.js"></script>
+
+    <!-- Initialize Reveal.js -->
+    <script>
+        Reveal.initialize({
+            // Configuration options
+            hash: true, // Enable slide URL linking
+            slideNumber: true, // Show slide numbers
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        });
+    </script>
+                
+</body>
+</html>

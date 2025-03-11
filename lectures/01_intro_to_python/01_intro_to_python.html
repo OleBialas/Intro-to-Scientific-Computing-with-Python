@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intro to Python and Numpy</title>
+    
+    <!-- Load Reveal.js from CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/dracula.min.css">
+    <!-- Additional plugins if needed -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/monokai.min.css">
+</head>
+<body>
+        <div class="reveal">
+            <div class="slides">
+                <section> 
+                    <h1>Intro to Python and Numpy</h1>
+                </section>
+                <section>
+                    <h2> What is Programming? </h2>
+                    <div class="r-hstack">
+                        <ul style="font-size: 32px;">
+                            <li> Programming means providing <b>instructions</b> for a <b>computer</b> to carry out a task
+                            <li data-fragment-index="0" class="fragment fade-left">
+                                <i style="color: white;"> "These machines have no common sense [...] they do <b>exactly as they are told</b>, no more and no less. This fact is the hardest concept to grasp when one first tries to use a computer" </i>
+                        </ul>
+                        <div class="r-vstack">
+                        <figure data-fragment-index="0" class="fragment fade-left">
+                            <img data-src="knuth.webp" width="600px" style="margin-left: 0.5em;">
+                            <img data-src="taocp.jpg" width="600px" style="margin-left: 0.5em; margin-top:-0.5em">
+                            <figcaption style="font-size:18px; margin-left: 0.5em; margin-top:-1em">
+                                Donald Knuth: The Art of Computer Programming
+                            </figcaption>
+                        </figure>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2> Why Python? </h2>
+                    <div class="r-hstack">
+                        <ul style="font-size: 32px;">
+                            <li data-fragment-index="0" class="fragment fade-left">
+                                It's a <b>high-level</b> scripting language that allows us to focus on the scientitifc application
+                            <li data-fragment-index="1" class="fragment fade-left">
+                                It's free and <b>open-source</b> software, enabling open science
+                            <li data-fragment-index="2" class="fragment fade-left">
+                                There is a extensive scientific <b>ecosystem</b> with domain-specific libraries
+                        </ul>
+                        <div class="r-vstack">
+                        <figure data-fragment-index="2" class="fragment fade-left">
+                            <img data-src="ecosystem.webp" width="1000px" style="margin-left: 0.5em;">
+                            <figcaption style="font-size:18px; margin-left: 0.5em; margin-top:-1em">
+                                    Harris et al.: Array programming with NumPy (Nature, 2020)
+                            </figcaption>
+                        </figure>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2> Why are You here? </h2>
+                    <p>Let's go to breakout rooms and chat! </p>
+                    <ul>
+                        <li class="fragment fade-left"> Who are you and what is your <b>field of study</b>?
+                        <li class="fragment fade-left"> Do you have <b>prior experience</b> in programming?
+                        <li class="fragment fade-left"> What are you expecting to <b>learn</b> in this course?
+                </section>
+
+
+    <!-- Load Reveal.js scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/notes/notes.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/markdown/markdown.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/highlight.min.js"></script>
+
+    <!-- Initialize Reveal.js -->
+    <script>
+        Reveal.initialize({
+            // Configuration options
+            hash: true, // Enable slide URL linking
+            slideNumber: true, // Show slide numbers
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        });
+    </script>
+                
+</body>
+</html>

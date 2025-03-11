@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> Data Visualization with Matplotlib and Seaborn</title>
+    
+    <!-- Load Reveal.js from CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/dracula.min.css">
+    <!-- Additional plugins if needed -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/monokai.min.css">
+</head>
+<body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <h2> Data Visualization with Matplotlib and Seaborn </h2>
+                </section>
+                <section>
+                  <h2 style="margin-top: 0.5em;">Good Visualizations</h2>
+                    <div class="venn-container" style="margin-top: -2em;"> 
+                        <div class="circle circle1" data-fragment-index="1">
+                            <span class="label">
+                                <p class="fragment fade-left"">Information</p>
+                            </span>
+                        </div>
+                    <div class="circle circle2">
+                            <span class="label">
+                                <p class="fragment fade-left"> Design </p>
+                            </span>
+                    </div>
+                    <div class="circle circle3">
+                            <span class="label">
+                                <p class="fragment fade-left"">Purpose</p>
+                            </span>
+                    </div>
+                  </div>
+
+                  <style>
+                    .venn-container {
+                      position: relative;
+                      width: 850px;
+                      height: 650px;
+                      margin: 40px auto;
+                    }
+                    .circle {
+                      position: absolute;
+                      width: 350px;
+                      height: 350px;
+                      border-radius: 50%;
+                      opacity: 0.6;
+                      font-size: 28px;
+                      font-weight: bold;
+                      color: #fff;
+                    }
+                    /* Positions for the circles */
+                    .circle1 {
+                      background-color: rgba(255, 0, 0, 0.5);
+                      top: 120px;
+                      left: 80px;
+                    }
+                    .circle2 {
+                      background-color: rgba(0, 255, 0, 0.5);
+                      top: 120px;
+                      left: 370px;
+                    }
+                    .circle3 {
+                      background-color: rgba(0, 0, 255, 0.5);
+                      top: 250px;
+                      left: 225px;
+                    }
+                    /* Positioning for the text labels */
+                    .circle1 .label {
+                      position: absolute;
+                      /* Push text toward the left outside the overlapping area */
+                      top: 30%;
+                      left: 20%;
+                    }
+                    .circle2 .label {
+                      position: absolute;
+                      /* Push text toward the right outside the overlapping area */
+                      top: 30%;
+                      right: 20%;
+                    }
+                    .circle3 .label {
+                      position: absolute;
+                      /* Push text downward away from the center overlap */
+                      bottom: 30%;
+                      left: 50%;
+                      transform: translateX(-50%);
+                    }
+                  </style>
+                </section>
+                <section> 
+                    <h2> Different Approaches </h2>
+                    <div class="r-hstack" style="margin-top: 2em;">
+                        <div style="flex: 1; min-width: 0;">
+                            <h4 data-fragment-index="0" class="fragment fade-left">Seaborn - Declarative</h4>
+                            <ul style="font-size: 24px">
+                                <li data-fragment-index="1" class="fragment fade-left"> 
+                                    Describe <b>what</b> data you want to plot
+                                <li data-fragment-index="2" class="fragment fade-left"> 
+                                    <i style="color: white;">"Plot variable 1 against variable 2 and add a color code for variable 3"</i> </li>
+                                <li data-fragment-index="3" class="fragment fade-left"> 
+                                    Make complex graphs with <b>little effort</b>
+                                <li data-fragment-index="4" class="fragment fade-left"> 
+                                    Customization is <b>limited</b>
+                            </ul>
+
+                        </div>
+                        <div style="flex: 1; min-width: 0;">
+                            <h4 data-fragment-index="5" class="fragment fade-left">Matplotlib - Imperative</h4>
+                            <ul style="font-size: 24px">
+                                <li data-fragment-index="6" class="fragment fade-left"> 
+                                    Describe <b>how</b> to plot the data
+                                <li data-fragment-index="7" class="fragment fade-left"> 
+                                    <i style="color: white;">"Draw red circles at these coordinates and blue circles at these coordinates"</i> </li>
+                                <li data-fragment-index="8" class="fragment fade-left"> 
+                                    Fine grained <b>control</b>
+                                <li data-fragment-index="9" class="fragment fade-left"> 
+                                    Creating complex graphs is <b>laborious</b>
+                            </ul>
+                        </div>
+                    </div>
+                    <div clarr="r-hstack">
+                        <img data-src="seaborn.svg" height="200px" style="margin-right: 3.5em;" data-fragment-index="0" class="fragment fade-left">
+                        <img data-src="matplotlib.svg" height="200px" style="margin-left: 3.5em;" data-fragment-index="5" class="fragment fade-left">
+                    </div>
+                </section>
+
+                <section>
+                    <h2> The Gapminder Dataset </h2>
+                    <div class="r-hstack">
+                        <ul style="font-size: 24px;">
+                            <li data-fragment-index="0" class="fragment fade-left"> Data from ~60 <b> countries </b> over 50 years
+                            <li class="fragment fade-left"> How did global <b>demographics</b> change?
+                            <li class="fragment fade-left"> How did the world develop <b>economically</b>?
+                        </ul>
+                        <img data-src="globe.svg", height="200px" style="margin-left: 0.5em;" data-fragment-index="0" class="fragment fade-left">
+                    </div>
+
+                    <table border="1" class="dataframe fragment fade left" style="font-size: 24px;">
+                      <thead>
+                        <tr style="text-align: right;">
+                          <th></th>
+                          <th>index</th>
+                          <th>year</th>
+                          <th>country</th>
+                          <th>pop</th>
+                          <th>life_expect</th>
+                          <th>fertility</th>
+                          <th>continent</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th>0</th>
+                          <td>76</td>
+                          <td>2005</td>
+                          <td>Bangladesh</td>
+                          <td>144319628</td>
+                          <td>64.062</td>
+                          <td>2.8260</td>
+                          <td>Asia</td>
+                        </tr>
+                        <tr>
+                          <th>1</th>
+                          <td>476</td>
+                          <td>1970</td>
+                          <td>Lebanon</td>
+                          <td>2383029</td>
+                          <td>65.421</td>
+                          <td>4.7800</td>
+                          <td>Asia</td>
+                        </tr>
+                        <tr>
+                          <th>2</th>
+                          <td>330</td>
+                          <td>1955</td>
+                          <td>Iceland</td>
+                          <td>158044</td>
+                          <td>73.470</td>
+                          <td>4.0230</td>
+                          <td>Europe</td>
+                        </tr>
+                        <tr>
+                          <th>3</th>
+                          <td>153</td>
+                          <td>2005</td>
+                          <td>China</td>
+                          <td>1303182268</td>
+                          <td>72.961</td>
+                          <td>1.7250</td>
+                          <td>Asia</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                </section>
+
+
+    <!-- Load Reveal.js scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/notes/notes.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/markdown/markdown.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/highlight.min.js"></script>
+
+    <!-- Initialize Reveal.js -->
+    <script>
+        Reveal.initialize({
+            // Configuration options
+            hash: true, // Enable slide URL linking
+            slideNumber: true, // Show slide numbers
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        });
+    </script>
+                
+</body>
+</html>
