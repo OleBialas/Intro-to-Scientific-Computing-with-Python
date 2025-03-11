@@ -80,13 +80,13 @@ print('\u200b')
 
 :::{#exm-}
 Plot the population size (`"pop"`) across time (`"year"`) for Germany (`df_ger`) and label the x- and y-axis with `"Year"` and `"Population Size"`.
+:::
 
 ```{python}
 plt.plot(df_ger['year'], df_ger['pop'])
 plt.xlabel("Year")
 plt.ylabel("Population Size")
 ```
-:::
 
 :::{#exr-}
 Plot the fertility rates (`"fertility"`) across time (`"year"`) for Germany (`df_ger`)
@@ -200,25 +200,29 @@ Once we are done, we can save our result to an image using the `plt.savefig()` f
 | `plt.tight_layout()` | Adjust the layout so that the subplots don't overlap |
 | `plt.savefig("myfig.png", dpi=300)` | Store the current figure as `"myfig.png"` with a resolution of 300 `dpi` (dots per inch) |
 
+---
+
 :::{#exm-}
 Create a 2-by-2 grid of (empty) subplots
+:::
+
 ```{python}
 plt.subplot(2,2,1)
 plt.subplot(2,2,2)
 plt.subplot(2,2,3)
 plt.subplot(2,2,4)
 ```
-:::
 
 :::{#exm-}
 Create a 2-by-1 grid of (empty) subplots and label their x-axes as `"x1"` and `"x2"`.
+:::
+
 ```{python}
 plt.subplot(2,1,1)
 plt.xlabel("x1")
 plt.subplot(2,1,2)
 plt.xlabel("x2")
 ```
-:::
 
 :::{#exr-}
 Create a 1-by-2 grid of (empty) subplots
@@ -357,6 +361,14 @@ That line has two parameters: the intercept `a` and the slope `b`. `a` is the va
 In this section, we will use the `linregress()` function from the `scipy.stats` module to model the relationship between life expectancy and fertility in the Gapminder data set.
 Finally, we will plot the estimated linear model together with the data.
 
+| Code | Description |
+| --- | --- |
+| `plt.scatter(x, y)` | Create a scatter plot with points at the coordinates `x` and `y` |
+| `from scipy.stats import linregress` | Import the `linregress` function from the `scipy` package |
+| `results = linregress(x, y)` | Compute the linear regression between the variables x and y and assign the returned value to a variable `results` |
+
+---
+
 :::{#exr-}
 Create a `scatter` plot to visualize the relationship between life expectancy (`"life_expect"`) and fertility rates (`"fertility"`) for the whole Gapminder data set (`df`) and label the axes with `"Life Expectancy in Years"` and `"Fertility Rate"`.
 :::
@@ -396,13 +408,13 @@ print('\u200b')
 
 :::{#exm-}
 Compute the linear regression between life expectancy (`"life_expect"`) and population size (`"pop"`) and store the returned value in a variable called `results`. Then, extract the p-value which is stored in the 4th element of `results`, assign it to a variable `p` and print that variable.
+:::
 
 ```{python}
 results = linregress(df["life_expect"], df["pop"])
 p = results[3]
 print(p)
 ```
-:::
 
 :::{#exr-}
 Compute the linear regression between life expectancy (`"life_expect"`) and population size (`"pop"`) and store the returned value in a variable called `results`. Then, extract the slope and intercept which are stored in the 1st and 2nd element of `results`, assign them to variables `a` and `b` print those variable.
@@ -491,6 +503,15 @@ Finally, we can combine the advantages both approaches and use Seaborn to create
 In this section, we will use Seaborn to create detailed visualizations of the Gapminder data.
 Then, we'll plot these visualizations to subplots created with Matplotlib and customize them.
 
+| Code | Description |
+| --- | --- |
+| `sns.kdeplot(data=df, x="var1", hue="var2")` | Plot the kernel density estimate (kde) for variable `"var1"` from `df` and add a `hue` to encode `"var2"` |
+| `sns.scatterplot(data=df, x="var1", y="var2", hue="var3")` | Plot `"var1"` against `"var2"` in a `scatterplot` and add a `hue` to encode `"var3"` |
+| `ax1 = plt.subplot(1,2,1)` | Create the first `subplot` in a 1-by-2 grid and assign the returned object to a variable `ax1` |
+| `sns.scatterplot(data=df, x="var1", y="var2", ax=ax1)` | Plot `"var1"` against `"var2"` in a `scatterplot` on subplot `ax1` |
+| `ax1.annotate("X", xy=(0.5,0.5), xycoords="axes fraction")` | Plot the letter `"X"` on subplot `ax1` at `xy` coordinates `(0.5,0.5)` defined in fractions of an axis (i.e. in the middle of the plot |
+
+---
 
 :::{#exr-}
 Import the `seaborn` library under the alias `sns`
