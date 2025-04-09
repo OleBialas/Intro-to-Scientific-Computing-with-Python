@@ -417,7 +417,7 @@ print('\u200b')
 :::
 
 :::{#exr-}
-Select the data from the first EEG channel.
+Select the data from the first EEG channel (Tip: channels are represented in the 2nd dimension of the `eeg` array).
 :::
 
 :::{.sol}
@@ -456,7 +456,7 @@ Select the data from the first half of all time points for EEG channels 10 to 20
 
 :::{.sol}
 ```{python}
-n_time = int(np.shape(eeg)[0]/2)
+n_time = int(np.shape(eeg)[0]/2)  # unnecessary
 eeg[:, 9:20,  :n_time]
 ```
 :::
@@ -529,7 +529,7 @@ Compute this value separately for the first and second half of epochs - which on
 
 :::{.sol}
 ```{python}
-n_epo_half = int(np.shape(gfp)[0]/2)
+n_epo_half = int(np.shape(gfp)[0]/2) # unnecessary
 print(np.mean(gfp[0:n_epo_half]) < np.mean(gfp[n_epo_half:]))
 ```
 :::

@@ -87,6 +87,7 @@ print('\u200b')
 ```
 :::
 
+
 :::{#exr-}
 Assign the Boolean value `False` to a variable called `this_is_false` and convert it to an integer.
 :::
@@ -177,7 +178,7 @@ print('\u200b')
 :::
 
 :::{#exr-}
-Multiply the list `dice` by 2. Try to add 1 to it.
+Multiply the list `dice` by 2. Try to add 1 to it. What error message do you observe?
 :::
 
 :::{.sol}
@@ -546,6 +547,7 @@ Are the arrays generated with the two methods identical?
 
 :::{.sol}
 ```{python}
+# too complicated?
 t1 = np.linspace(0, 20, 100*20+1)
 t2 = np.arange(0, 20+1/100, 1/100)
 ```

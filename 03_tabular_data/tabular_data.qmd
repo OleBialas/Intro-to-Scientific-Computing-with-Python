@@ -112,6 +112,7 @@ print('\u200b')
 :::
 
 :::{#exr-}
+Move this to review?
 Open `new_salaries.csv` in your editor (simply click on it in the file explorer) and manually edit the file to append a new individual with name `Jim`, age `32`, city `Kansas`, salary `72000`, and Department `HR`. Save the edited file, then load `new_salaries.csv` and print it to make sure your edit was stored.
 :::
 
@@ -252,7 +253,8 @@ print('\u200b')
 :::
 
 :::{#exr-}
-What is the most common `"embark_town"` for passengers of the Titanic?
+Rephrase:
+What is the most common `"embark_town"` for passengers of the Titanic? 
 :::
 
 :::{.sol}
@@ -436,6 +438,7 @@ print('\u200b')
 :::
 
 :::{#exr-}
+Rephrase:
 What is the most common `embark_town` for passengers in `"pclass"` 1 and `"pclass"` 3?
 :::
 
